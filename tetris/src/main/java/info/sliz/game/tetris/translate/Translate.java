@@ -1,6 +1,8 @@
 package info.sliz.game.tetris.translate;
 
 
+import info.sliz.game.tetris.util.StringUtils;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -22,6 +24,14 @@ public abstract class Translate {
     }
     
     public final String getTranslate(KEY key){
-        return translate.get(key);
+        if (key == null){
+            throw new NullPointerException("Parameter 'key' should not be empty!");
+        }
+        String val = translate.get(key);
+        if (StringUtils.isNullOrEmpty(val)){
+            return key.toString();
+        }else{
+            return val;
+        }
     }
 }
