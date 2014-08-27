@@ -6,9 +6,21 @@ import javafx.scene.shape.Box;
 public class DeskGenerator extends Group{
     
     public DeskGenerator(int lenght, int height, int countX, int countY, double lineWidht) {
-        if (lenght <= 0 || height <= 0 || countX <= 0 || countX >= lenght || countY <= 0 || countY >= height || lineWidht <= 0 ){
-            throw new IllegalArgumentException("One or more requred parrameters are invalid!");
+        if (lenght <= 0 || height <= 0){
+            throw new IllegalArgumentException("lenght or height are invalid!");
         }
+        if (countX <= 0 || countX >= lenght){
+            throw new IllegalArgumentException("Number of squares for X is invalid!");
+        }
+        if (countY <= 0 || countY >= height ){
+            throw new IllegalArgumentException("Number of squares for Y is invalid!");
+        }
+        if (lineWidht <= 0 ){
+            throw new IllegalArgumentException("Line height is invalid!");
+        }
+        this.generateDesk(lenght, height, countX, countY, lineWidht);
+    }
+    private void generateDesk(int lenght, int height, int countX, int countY, double lineWidht){
         Group line;
         //Line x generate
         for (double x = (height/2)*-1;x<=height/2;x=x+(height/countY)){
