@@ -24,14 +24,14 @@ public class TetrisGameRunner extends Application {
     private final PerspectiveCamera camera = new PerspectiveCamera(true);
     
     private void buildScene() {
-        System.out.println("buildScene");
+
         root.getChildren().add(world);
         
         camera.setNearClip(0.1);
         camera.setFarClip(10000.0);
-        camera.setTranslateZ(-320);
+        camera.setTranslateZ(-200);
         root.getChildren().add(camera);
-        world.getChildren().addAll(new FxGameSpace(9, 15, 10, 0.5));
+        world.getChildren().addAll(new FxGameSpace(5, 10, 10, 0.2));
     }
 
     @Override

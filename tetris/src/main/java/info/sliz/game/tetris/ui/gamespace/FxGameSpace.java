@@ -1,11 +1,16 @@
 package info.sliz.game.tetris.ui.gamespace;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
 
 public class FxGameSpace extends Group{
+    private final Logger logger = LoggerFactory.getLogger(FxGameSpace.class);
     
     public FxGameSpace(final int lenghtAndHeight,final int depth,final int sizeSquare,final double lineWidthSquare) {
+        logger.info(String.format("Start Generate Game Space: %d X %d X %d size: %d line: %f",lenghtAndHeight,lenghtAndHeight,depth,sizeSquare,lineWidthSquare));
         this.getChildren().add(new FxDeskGenerator(lenghtAndHeight * sizeSquare, lenghtAndHeight * sizeSquare, lenghtAndHeight, lenghtAndHeight,lineWidthSquare));
         
         for (int i = 0; i< 4; i++){
@@ -18,7 +23,7 @@ public class FxGameSpace extends Group{
             this.getChildren().add(des);
         }
     }
-    private Group createGroup(final int lenght, final int height, final int countX,final  int countY, final double lineWidht){
+    private static Group createGroup(final int lenght, final int height, final int countX,final  int countY, final double lineWidht){
         Group group = new Group();
         Rotate r = new Rotate();
         r.setAxis(Rotate.X_AXIS);
