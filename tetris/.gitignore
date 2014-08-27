@@ -4,6 +4,7 @@ bin/
 
 # ignore all target directories
 target/
+.settings/
 
 # ignore all files ending with ~
 *~ 
