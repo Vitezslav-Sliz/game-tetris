@@ -3,9 +3,9 @@ package info.sliz.game.tetris.ui.gamespace;
 import javafx.scene.Group;
 import javafx.scene.shape.Box;
 
-public class DeskGenerator extends Group{
+public class FxDeskGenerator extends Group{
     
-    public DeskGenerator(int lenght, int height, int countX, int countY, double lineWidht) {
+    public FxDeskGenerator(final int lenght, final int height, final int countX,final  int countY, final double lineWidht) {
         if (lenght <= 0 || height <= 0){
             throw new IllegalArgumentException("lenght or height are invalid!");
         }

@@ -14,7 +14,7 @@ public abstract class Translate {
     protected Locale locale;
     protected Map<KEY, String> translate;
     
-    public Translate(Locale locale) {
+    public Translate(final Locale locale) {
         this.locale = locale;
         this.translate = new HashMap<KEY, String>();
     }
@@ -23,7 +23,7 @@ public abstract class Translate {
         return this.locale;
     }
     
-    public final String getTranslate(KEY key){
+    public final String getTranslate(final KEY key){
         if (key == null){
             throw new NullPointerException("Parameter 'key' should not be empty!");
         }

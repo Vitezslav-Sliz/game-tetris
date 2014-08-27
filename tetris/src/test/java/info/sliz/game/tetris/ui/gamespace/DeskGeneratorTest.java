@@ -11,12 +11,12 @@ public class DeskGeneratorTest {
 
     @Test
     public void testDeskGenerator() {
-        new DeskGenerator(100, 100, 10, 10, 1);
+        new FxDeskGenerator(100, 100, 10, 10, 1);
     }
     
     @Test(expected=IllegalArgumentException.class)
     public void testDeskGeneratorInvalid() {
-        new DeskGenerator(-50, 50, 100, 100, 1);
+        new FxDeskGenerator(-50, 50, 100, 100, 1);
     }
 
 }

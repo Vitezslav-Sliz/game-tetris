@@ -38,6 +38,6 @@ public class DeskGeneratorSizesTest {
     
     @Test
     public void testDeskGenerator() {
-        assertEquals(String.format("Count of assets for desk: %d X %d - %d X %d should be: %d ", width,height,countX,countY, result),result,new DeskGenerator(width,height, countX, countY,1).getChildren().size());
+        assertEquals(String.format("Count of assets for desk: %d X %d - %d X %d should be: %d ", width,height,countX,countY, result),result,new FxDeskGenerator(width,height, countX, countY,1).getChildren().size());
     }
 }

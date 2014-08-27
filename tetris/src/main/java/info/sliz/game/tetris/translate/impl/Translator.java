@@ -32,7 +32,7 @@ public final class Translator implements ITranslator {
         }
     }
     
-    public String getTranslate(Locale locale, KEY key) {
+    public String getTranslate(final Locale locale, final KEY key) {
         String value = this.languages.getTranslate(locale).getTranslate(key);
         if (StringUtils.isNullOrEmpty(value)){
             return key.toString();
@@ -43,14 +43,14 @@ public final class Translator implements ITranslator {
     private class Languages {
         private final Map<Locale, Translate> languages = new HashMap<Locale, Translate>();
         private Locale def;
-        private void setDefaultTranslate(Translate t){
+        private void setDefaultTranslate(final Translate t){
             def = t.getLocale();
             addTranslate(t);
         }
-        private void addTranslate(Translate t){
+        private void addTranslate(final Translate t){
             this.languages.put(t.getLocale(), t);
         }
-        private Translate getTranslate(Locale locale){
+        private Translate getTranslate(final Locale locale){
             if (this.languages.get(locale) == null){
                 if (this.languages.get(def) == null){
                     return new Translate(null){

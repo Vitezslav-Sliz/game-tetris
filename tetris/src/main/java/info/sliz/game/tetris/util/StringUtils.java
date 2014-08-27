@@ -6,7 +6,7 @@ public final class StringUtils {
         super();
     }
     
-    public static boolean isNullOrEmpty(String string){
+    public static boolean isNullOrEmpty(final String string){
         return string == null || string.isEmpty() || string.trim().isEmpty();
     }
 }

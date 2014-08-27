@@ -6,5 +6,5 @@ import info.sliz.game.tetris.translate.Translate.KEY;
 
 public interface ITranslator {
     
-    public String getTranslate(Locale locale, KEY key);
+    public String getTranslate(final Locale locale,final KEY key);
 }
