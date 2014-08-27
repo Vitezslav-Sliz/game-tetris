@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class TetrisGameRunner extends Application {
-    private final Logger logger = LoggerFactory.getLogger(TetrisGameRunner.class);
+    private static final Logger logger = LoggerFactory.getLogger(TetrisGameRunner.class);
     private final ITranslator trans = Translator.getInstance();
     private final Group root = new Group();
     private final Group world = new Group();
