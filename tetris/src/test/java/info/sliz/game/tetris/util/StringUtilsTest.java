@@ -38,7 +38,6 @@ public class StringUtilsTest {
 
     @Test
     public void testIsNullOrEmpty() {
-        System.out.println(String.format("Unput String is :'%s'", input));
-        assertEquals(result, StringUtils.isNullOrEmpty(input)); 
+        assertEquals(String.format("Tested String is :'%s'", input),result, StringUtils.isNullOrEmpty(input)); 
     }
 }
