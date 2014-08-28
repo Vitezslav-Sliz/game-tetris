@@ -1,6 +1,7 @@
 package info.sliz.game.tetris.ui.gamespace;
 
 import static org.junit.Assert.*;
+import info.sliz.game.tetris.ui.gamespace.FxGameSpace;
 
 import java.util.Arrays;
 import java.util.Collection;
