@@ -36,7 +36,7 @@ public class TetrisGameRunner extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        LOGGER.info("Start Application");
+        LOGGER.debug("Start Application");
 
         buildScene();
         Scene scene = new Scene(root, 768, 768);

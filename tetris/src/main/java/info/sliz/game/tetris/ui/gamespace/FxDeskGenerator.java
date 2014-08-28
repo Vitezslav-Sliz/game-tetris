@@ -1,9 +1,13 @@
 package info.sliz.game.tetris.ui.gamespace;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.scene.Group;
 import javafx.scene.shape.Box;
 
 public class FxDeskGenerator extends Group{
+    private static final Logger LOGGER = LoggerFactory.getLogger(FxDeskGenerator.class);
     
     public FxDeskGenerator(final int lenght, final int height, final int countX,final  int countY, final double lineWidht) {
         if (lenght <= 0 || height <= 0){
@@ -18,6 +22,7 @@ public class FxDeskGenerator extends Group{
         if (lineWidht <= 0 ){
             throw new IllegalArgumentException("Line height is invalid!");
         }
+        LOGGER.debug(String.format("Generate Game desc: %d X %d sizes: %d X %d line: %f", lenght,height,countX,countY,lineWidht));
         this.generateDesk(lenght, height, countX, countY, lineWidht);
     }
     private void generateDesk(int lenght, int height, int countX, int countY, double lineWidht){

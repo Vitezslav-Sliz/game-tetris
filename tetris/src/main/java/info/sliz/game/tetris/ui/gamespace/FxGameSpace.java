@@ -10,7 +10,7 @@ public class FxGameSpace extends Group{
     private static final Logger LOGGER = LoggerFactory.getLogger(FxGameSpace.class);
     
     public FxGameSpace(final int lenghtAndHeight,final int depth,final int sizeSquare,final double lineWidthSquare) {
-        LOGGER.info(String.format("Start Generate Game Space: %d X %d X %d size: %d line: %f",lenghtAndHeight,lenghtAndHeight,depth,sizeSquare,lineWidthSquare));
+        LOGGER.debug(String.format("Start Generate Game Space: %d X %d X %d size: %d line: %f",lenghtAndHeight,lenghtAndHeight,depth,sizeSquare,lineWidthSquare));
         this.getChildren().add(new FxDeskGenerator(lenghtAndHeight * sizeSquare, lenghtAndHeight * sizeSquare, lenghtAndHeight, lenghtAndHeight,lineWidthSquare));
         
         for (int i = 0; i< 4; i++){
@@ -31,6 +31,7 @@ public class FxGameSpace extends Group{
         group.getTransforms().add(r);
         group.setTranslateY(lenght/2);
         group.setTranslateZ(-height/2);
+        LOGGER.debug(String.format("Set Translate for Game desc: [%d,%d,%d]", 0,lenght/2,-height/2));
         group.getChildren().add(new FxDeskGenerator(lenght, height, countX, countY,lineWidht));
         return group;
     }
