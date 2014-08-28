@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 
 public abstract class FxCube extends Group {
 
-    protected final Color initialColor = Color.DARKGRAY;
+    protected static final Color COLOR_DEFAULT = Color.DARKGRAY;
     
     protected final int size;
     
@@ -14,5 +14,5 @@ public abstract class FxCube extends Group {
         this.size = size;
     }
     
-    abstract public void setColor(final Color color);
+    public abstract void setColor(final Color color);
 }

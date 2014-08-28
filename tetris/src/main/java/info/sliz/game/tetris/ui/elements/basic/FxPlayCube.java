@@ -15,19 +15,20 @@ public class FxPlayCube extends FxCube {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(FxPlayCube.class);
     
-    private final Color bColor = Color.WHITE;
-    private final double scale = 25.0;
+    private static final Color COLOR_BORDER = Color.WHITE;
+    private static final double ASPECT = 25.0;
+    
     private final List<Box> lines = new ArrayList<Box>();
     
     public FxPlayCube(int size) {
         super(size);
-        final double trans = (this.size/2.0)-(this.size/scale/2.0);
-        final double aspect = this.size/scale;
+        final double trans = (this.size/2.0)-(this.size/ASPECT/2.0);
+        final double aspect = this.size/ASPECT;
         LOGGER.debug(String.format("Defined values for Border of Play Cube - translation: %f and aspect size: %f ", trans,aspect));
 
         double boxSize = this.size-aspect;
         Box n = new Box(boxSize,boxSize,boxSize);
-        n.setMaterial(new PhongMaterial(initialColor));
+        n.setMaterial(new PhongMaterial(FxCube.COLOR_DEFAULT));
         this.getChildren().add(n);        
         
         addLine(size, aspect, aspect, 0, trans, trans);
@@ -59,7 +60,7 @@ public class FxPlayCube extends FxCube {
         line.setTranslateY(translY);
         line.setTranslateZ(translZ);
         Box n = new Box(sizeX, sizeY, sizeZ);
-        n.setMaterial(new PhongMaterial(bColor));
+        n.setMaterial(new PhongMaterial(FxPlayCube.COLOR_BORDER));
         this.lines.add(n);
         line.getChildren().add(n);
         this.getChildren().add(line);

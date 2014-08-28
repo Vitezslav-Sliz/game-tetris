@@ -10,7 +10,7 @@ public class FxStaticCube extends FxCube {
     public FxStaticCube(final int size) {
         super(size);
         this.box = new Box(this.size,this.size,this.size);
-        this.box.setMaterial(new PhongMaterial(initialColor));
+        this.box.setMaterial(new PhongMaterial(FxCube.COLOR_DEFAULT));
         this.getChildren().add(this.box);
     }
     
