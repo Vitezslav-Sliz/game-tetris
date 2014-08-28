@@ -33,7 +33,21 @@ public final class Translator implements ITranslator {
     }
     
     public String getTranslate(final Locale locale, final KEY key) {
+        if (locale == null || key == null){
+            throw new IllegalArgumentException("One of required parrameters is missing!");
+        }
         String value = this.languages.getTranslate(locale).getTranslate(key);
+        if (StringUtils.isNullOrEmpty(value)){
+            return key.toString();
+        }else{
+            return value;
+        }
+    }
+    public String getTranslate(KEY key) {
+        if (key == null){
+            throw new IllegalArgumentException("key parrameter is missing!");
+        }
+        String value = this.languages.getTranslate().getTranslate(key);
         if (StringUtils.isNullOrEmpty(value)){
             return key.toString();
         }else{
@@ -54,7 +68,6 @@ public final class Translator implements ITranslator {
             if (this.languages.get(locale) == null){
                 if (this.languages.get(def) == null){
                     return new Translate(null){
-                        
                     };
                 }else{
                     return this.languages.get(def);
@@ -63,6 +76,8 @@ public final class Translator implements ITranslator {
                 return this.languages.get(locale);
             }
         }
-        
+        private Translate getTranslate() {
+            return this.getTranslate(def);
+        }
     }
 }
