@@ -10,14 +10,14 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class DeskGeneratorSizesTest {
+public class FxDeskGeneratorSizesTest {
     private int width;
     private int height;
     private int countX;
     private int countY;
     private int result;
 
-    public DeskGeneratorSizesTest(int width, int height, int countX,
+    public FxDeskGeneratorSizesTest(int width, int height, int countX,
             int countY) {
         super();
         this.width = width;

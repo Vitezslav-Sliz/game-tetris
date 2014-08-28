@@ -3,7 +3,7 @@ package info.sliz.game.tetris.ui.gamespace;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DeskGeneratorTest {
+public class FxDeskGeneratorTest {
 
     @Before
     public void setUp() throws Exception {
