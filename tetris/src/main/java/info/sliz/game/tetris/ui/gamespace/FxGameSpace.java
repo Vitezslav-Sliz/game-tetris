@@ -7,10 +7,10 @@ import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
 
 public class FxGameSpace extends Group{
-    private static final Logger logger = LoggerFactory.getLogger(FxGameSpace.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FxGameSpace.class);
     
     public FxGameSpace(final int lenghtAndHeight,final int depth,final int sizeSquare,final double lineWidthSquare) {
-        logger.info(String.format("Start Generate Game Space: %d X %d X %d size: %d line: %f",lenghtAndHeight,lenghtAndHeight,depth,sizeSquare,lineWidthSquare));
+        LOGGER.info(String.format("Start Generate Game Space: %d X %d X %d size: %d line: %f",lenghtAndHeight,lenghtAndHeight,depth,sizeSquare,lineWidthSquare));
         this.getChildren().add(new FxDeskGenerator(lenghtAndHeight * sizeSquare, lenghtAndHeight * sizeSquare, lenghtAndHeight, lenghtAndHeight,lineWidthSquare));
         
         for (int i = 0; i< 4; i++){

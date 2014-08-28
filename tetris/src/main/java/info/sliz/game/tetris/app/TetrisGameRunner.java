@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class TetrisGameRunner extends Application {
-    private static final Logger logger = LoggerFactory.getLogger(TetrisGameRunner.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TetrisGameRunner.class);
     private final ITranslator trans = Translator.getInstance();
     private final Group root = new Group();
     private final Group world = new Group();
@@ -36,7 +36,7 @@ public class TetrisGameRunner extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Start Application");
+        LOGGER.info("Start Application");
 
         buildScene();
         Scene scene = new Scene(root, 768, 768);
