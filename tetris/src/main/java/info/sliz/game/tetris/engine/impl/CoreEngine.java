@@ -2,9 +2,9 @@ package info.sliz.game.tetris.engine.impl;
 
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
-import info.sliz.game.tetris.ui.elements.playcube.FxElement;
-import info.sliz.game.tetris.ui.elements.playcube.impl.FxDotElement;
-import info.sliz.game.tetris.ui.gamespace.FxGameSpace;
+import info.sliz.game.tetris.engine.elements.playcube.FxElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxDotElement;
+import info.sliz.game.tetris.engine.gamespace.FxGameSpace;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package info.sliz.game.tetris.ui.elements.playcube;
+package info.sliz.game.tetris.engine.elements.playcube;
 
 public interface IMovable {
 

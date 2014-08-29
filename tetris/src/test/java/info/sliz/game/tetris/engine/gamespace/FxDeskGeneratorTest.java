@@ -1,6 +1,6 @@
-package info.sliz.game.tetris.ui.gamespace;
+package info.sliz.game.tetris.engine.gamespace;
 
-import info.sliz.game.tetris.ui.gamespace.FxDeskGenerator;
+import info.sliz.game.tetris.engine.gamespace.FxDeskGenerator;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package info.sliz.game.tetris.ui.gamespace;
+package info.sliz.game.tetris.engine.gamespace;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package info.sliz.game.tetris.ui.gamespace;
+package info.sliz.game.tetris.engine.gamespace;
 
 import info.sliz.game.tetris.config.IConfiguration;
 

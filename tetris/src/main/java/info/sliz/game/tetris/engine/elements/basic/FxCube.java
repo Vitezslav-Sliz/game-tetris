@@ -1,4 +1,4 @@
-package info.sliz.game.tetris.ui.elements.basic;
+package info.sliz.game.tetris.engine.elements.basic;
 
 import info.sliz.game.tetris.config.IConfiguration;
 import javafx.scene.Group;

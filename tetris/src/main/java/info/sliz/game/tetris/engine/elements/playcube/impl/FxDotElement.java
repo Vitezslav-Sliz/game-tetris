@@ -1,11 +1,11 @@
-package info.sliz.game.tetris.ui.elements.playcube.impl;
+package info.sliz.game.tetris.engine.elements.playcube.impl;
 
 import javafx.scene.paint.Color;
 import info.sliz.game.tetris.config.IConfiguration;
-import info.sliz.game.tetris.ui.elements.basic.FxCube;
-import info.sliz.game.tetris.ui.elements.basic.impl.FxPlayCube;
-import info.sliz.game.tetris.ui.elements.basic.impl.FxStaticCube;
-import info.sliz.game.tetris.ui.elements.playcube.FxElement;
+import info.sliz.game.tetris.engine.elements.basic.FxCube;
+import info.sliz.game.tetris.engine.elements.basic.impl.FxPlayCube;
+import info.sliz.game.tetris.engine.elements.basic.impl.FxStaticCube;
+import info.sliz.game.tetris.engine.elements.playcube.FxElement;
 
 public class FxDotElement extends FxElement {
     private FxCube cube;
