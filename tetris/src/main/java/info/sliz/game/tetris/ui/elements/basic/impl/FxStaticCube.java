@@ -1,5 +1,6 @@
-package info.sliz.game.tetris.ui.elements.basic;
+package info.sliz.game.tetris.ui.elements.basic.impl;
 
+import info.sliz.game.tetris.ui.elements.basic.FxCube;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;

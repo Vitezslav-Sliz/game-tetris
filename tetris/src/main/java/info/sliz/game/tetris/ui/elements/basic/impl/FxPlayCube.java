@@ -1,4 +1,7 @@
-package info.sliz.game.tetris.ui.elements.basic;
+package info.sliz.game.tetris.ui.elements.basic.impl;
+
+import info.sliz.game.tetris.config.IConfiguration;
+import info.sliz.game.tetris.ui.elements.basic.FxCube;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +18,7 @@ public class FxPlayCube extends FxCube {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(FxPlayCube.class);
     
-    private static final Color COLOR_BORDER = Color.WHITE;
+    private static final Color COLOR_BORDER = IConfiguration.COLOR_LINE;
     private static final double ASPECT = 25.0;
     
     private final List<Box> lines = new ArrayList<Box>();
@@ -51,7 +54,7 @@ public class FxPlayCube extends FxCube {
 
     @Override
     public void setColor(Color color) {
-        
+        throw new UnsupportedOperationException("Color is not applicable for PlayCube");
     }
     
     private final void addLine(final double sizeX,final double sizeY,final double sizeZ,final double translX,final double translY,final double translZ){

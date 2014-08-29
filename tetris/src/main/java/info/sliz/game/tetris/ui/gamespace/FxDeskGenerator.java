@@ -1,13 +1,18 @@
 package info.sliz.game.tetris.ui.gamespace;
 
+import info.sliz.game.tetris.config.IConfiguration;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
 public class FxDeskGenerator extends Group{
     private static final Logger LOGGER = LoggerFactory.getLogger(FxDeskGenerator.class);
+    private static final Color colorLine = IConfiguration.COLOR_SPACE;
     
     public FxDeskGenerator(final int lenght, final int height, final int countX,final  int countY, final double lineWidht) {
         if (lenght <= 0 || height <= 0){
@@ -31,14 +36,18 @@ public class FxDeskGenerator extends Group{
         for (double x = (height/2)*-1;x<=height/2;x=x+(height/countY)){
             line = new Group();
             line.setTranslateY(x);
-            line.getChildren().add(new Box(lenght, lineWidht, lineWidht));
+            Box b = new Box(lenght, lineWidht, lineWidht);
+            b.setMaterial(new PhongMaterial(colorLine));
+            line.getChildren().add(b);
             this.getChildren().add(line);
         }
         //Line y generate
         for (double y = (lenght/2)*-1;y<=lenght/2;y=y+(lenght/countX)){
             line = new Group();
             line.setTranslateX(y);
-            line.getChildren().add(new Box(lineWidht, height, lineWidht));
+            Box b = new Box(lineWidht, height, lineWidht);
+            b.setMaterial(new PhongMaterial(colorLine));
+            line.getChildren().add(b);
             this.getChildren().add(line);
         }
     }
