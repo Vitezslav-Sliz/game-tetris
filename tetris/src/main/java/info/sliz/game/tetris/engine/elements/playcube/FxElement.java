@@ -1,9 +1,11 @@
 package info.sliz.game.tetris.engine.elements.playcube;
 
+import java.util.Set;
+
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 
 public abstract class FxElement extends Group implements IMovable, IPlayable{
-    
     protected boolean playable;
     
     public FxElement(boolean playable) {
@@ -23,4 +25,6 @@ public abstract class FxElement extends Group implements IMovable, IPlayable{
         this.playable = play;
         
     }
+    
+    public abstract Set<Point3D> getControlPoints(); 
 }

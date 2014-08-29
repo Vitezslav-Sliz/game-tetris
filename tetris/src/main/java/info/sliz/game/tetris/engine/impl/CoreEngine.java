@@ -29,10 +29,10 @@ public class CoreEngine {
         
         active = new FxDotElement(0,0,-85,10,true);
         this.elements.add(active); 
-        this.commands.put(new CommandPlayLeft(this.active,10));
-        this.commands.put(new CommandPlayRight(this.active,10));
-        this.commands.put(new CommandPlayUp(this.active,10));
-        this.commands.put(new CommandPlayDown(this.active,10));
+        this.commands.put(new CommandPlayLeft(this.active,10,-25));
+        this.commands.put(new CommandPlayRight(this.active,10,25));
+        this.commands.put(new CommandPlayUp(this.active,10,-25));
+        this.commands.put(new CommandPlayDown(this.active,10,25));
         
     }
     

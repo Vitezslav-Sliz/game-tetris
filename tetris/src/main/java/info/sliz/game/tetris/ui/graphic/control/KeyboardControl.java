@@ -41,7 +41,7 @@ public class KeyboardControl implements EventHandler<KeyEvent> {
                 break;
             }
         } catch (CommandException e) {
-            LOGGER.info(String.format("Problem move element in '%s' direction. Cause: %s",event.getCode().toString(),e.getMessage()),e);
+            LOGGER.info(String.format("Problem move element in '%s' direction. Cause: %s",event.getCode().toString(),e.getMessage()));
         }
     }
 }
