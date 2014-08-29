@@ -6,5 +6,5 @@ public interface IMovable {
         LEFT,RIGHT,UP,DOWN,FORWARD,BACKWARD
     }
     
-    public void move(final MOVE direction, final double Step);
+    public void move(final MOVE direction, final double step);
 }

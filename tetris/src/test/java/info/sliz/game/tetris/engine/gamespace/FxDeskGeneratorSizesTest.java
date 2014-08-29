@@ -1,7 +1,7 @@
 package info.sliz.game.tetris.engine.gamespace;
 
 import static org.junit.Assert.assertEquals;
-import info.sliz.game.tetris.engine.gamespace.FxDeskGenerator;
+import info.sliz.game.tetris.engine.gamespace.impl.FxDeskGenerator;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package info.sliz.game.tetris.engine.elements.playcube.impl;
 
 import javafx.scene.paint.Color;
-import info.sliz.game.tetris.config.IConfiguration;
+import info.sliz.game.tetris.config.Configuration;
 import info.sliz.game.tetris.engine.elements.basic.FxCube;
 import info.sliz.game.tetris.engine.elements.basic.impl.FxPlayCube;
 import info.sliz.game.tetris.engine.elements.basic.impl.FxStaticCube;
@@ -10,7 +10,7 @@ import info.sliz.game.tetris.engine.elements.playcube.FxElement;
 public class FxDotElement extends FxElement {
     private FxCube cube;
     private final int size;
-    private Color color = IConfiguration.COLOR_CUBE;
+    private Color color = Configuration.COLOR_CUBE;
 
     public FxDotElement(final double x, final double y, final double z,final int size, final boolean playable) {
         super(playable);

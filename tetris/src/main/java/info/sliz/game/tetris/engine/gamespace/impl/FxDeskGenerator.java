@@ -1,6 +1,6 @@
-package info.sliz.game.tetris.engine.gamespace;
+package info.sliz.game.tetris.engine.gamespace.impl;
 
-import info.sliz.game.tetris.config.IConfiguration;
+import info.sliz.game.tetris.config.Configuration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,7 @@ import javafx.scene.shape.Box;
 
 public class FxDeskGenerator extends Group{
     private static final Logger LOGGER = LoggerFactory.getLogger(FxDeskGenerator.class);
-    private static final Color colorLine = IConfiguration.COLOR_SPACE;
+    private static final Color COLOR_LINE = Configuration.COLOR_SPACE;
     
     public FxDeskGenerator(final int lenght, final int height, final int countX,final  int countY, final double lineWidht) {
         if (lenght <= 0 || height <= 0){
@@ -37,7 +37,7 @@ public class FxDeskGenerator extends Group{
             line = new Group();
             line.setTranslateY(x);
             Box b = new Box(lenght, lineWidht, lineWidht);
-            b.setMaterial(new PhongMaterial(colorLine));
+            b.setMaterial(new PhongMaterial(COLOR_LINE));
             line.getChildren().add(b);
             this.getChildren().add(line);
         }
@@ -46,7 +46,7 @@ public class FxDeskGenerator extends Group{
             line = new Group();
             line.setTranslateX(y);
             Box b = new Box(lineWidht, height, lineWidht);
-            b.setMaterial(new PhongMaterial(colorLine));
+            b.setMaterial(new PhongMaterial(COLOR_LINE));
             line.getChildren().add(b);
             this.getChildren().add(line);
         }

@@ -5,7 +5,7 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import info.sliz.game.tetris.config.IConfiguration;
+import info.sliz.game.tetris.config.Configuration;
 import info.sliz.game.tetris.engine.impl.CoreEngine;
 import info.sliz.game.tetris.translate.ITranslator;
 import info.sliz.game.tetris.translate.Translate.KEY;
@@ -34,7 +34,7 @@ public class TetrisGameRunner extends Application {
         camera.setTranslateZ(-200);
         root.getChildren().add(camera);
         AmbientLight ambient = new AmbientLight();
-        ambient.setColor(IConfiguration.COLOR_LIGHT);
+        ambient.setColor(Configuration.COLOR_LIGHT);
         world.getChildren().addAll(ambient);
         world.getChildren().addAll(engine.getElements());
     }
@@ -45,7 +45,7 @@ public class TetrisGameRunner extends Application {
 
         buildScene();
         Scene scene = new Scene(root, 768, 768,true,SceneAntialiasing.BALANCED);
-        scene.setFill(IConfiguration.COLOR_UNIVERSE);
+        scene.setFill(Configuration.COLOR_UNIVERSE);
 
         primaryStage.setTitle(trans.getTranslate(Locale.getDefault(), KEY.APP_NAME));
         primaryStage.setScene(scene);

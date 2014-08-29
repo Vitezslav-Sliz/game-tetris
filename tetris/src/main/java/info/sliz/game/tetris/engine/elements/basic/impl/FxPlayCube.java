@@ -1,6 +1,6 @@
 package info.sliz.game.tetris.engine.elements.basic.impl;
 
-import info.sliz.game.tetris.config.IConfiguration;
+import info.sliz.game.tetris.config.Configuration;
 import info.sliz.game.tetris.engine.elements.basic.FxCube;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class FxPlayCube extends FxCube {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(FxPlayCube.class);
     
-    private static final Color COLOR_BORDER = IConfiguration.COLOR_LINE;
+    private static final Color COLOR_BORDER = Configuration.COLOR_LINE;
     private static final double ASPECT = 25.0;
     
     private final List<Box> lines = new ArrayList<Box>();

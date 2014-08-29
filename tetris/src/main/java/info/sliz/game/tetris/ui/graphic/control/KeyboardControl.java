@@ -1,6 +1,10 @@
 package info.sliz.game.tetris.ui.graphic.control;
 
+import info.sliz.game.tetris.engine.command.ICommand.CommandException;
+import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
+import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
+import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 import info.sliz.game.tetris.engine.impl.CoreEngine;
 
 import org.slf4j.Logger;
@@ -10,37 +14,34 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
 public class KeyboardControl implements EventHandler<KeyEvent> {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(KeyboardControl.class);
     private CoreEngine eng;
+    
     public KeyboardControl(final CoreEngine engine) {
         this.eng = engine;
     }
-    private static final Logger LOGGER = LoggerFactory.getLogger(KeyboardControl.class);
 
     public void handle(KeyEvent event) {
         LOGGER.debug("Pressed: " + event.getCode());
-        switch (event.getCode()) {
-        case X:
-            //cube.move(IMovable.MOVE.FORWARD, 10);
-            break;
-        case LEFT:
-            //cube.play(IMovable.MOVE.LEFT, 10);
-            break;
-        case RIGHT:
-            this.eng.getCommand(CommandPlayRight.class).Execute();
-            break;
-        case UP:
-            //cube.play(IMovable.MOVE.UP, 10);
-            break;
-        case DOWN:
-            //cube.play(IMovable.MOVE.DOWN, 10);
-            break;
-        case S:
-            //cube.setPlayable(!cube.isPlayable());
-            //cube.setColor(Color.YELLOW);
-            break;
-        default:
-            break;
+        try {
+            switch (event.getCode()) {
+            case LEFT:
+                this.eng.getCommand(CommandPlayLeft.class).execute();
+                break;
+            case RIGHT:
+                this.eng.getCommand(CommandPlayRight.class).execute();
+                break;
+            case UP:
+                this.eng.getCommand(CommandPlayUp.class).execute();
+                break;
+            case DOWN:
+                this.eng.getCommand(CommandPlayDown.class).execute();
+                break;
+            default:
+                break;
+            }
+        } catch (CommandException e) {
+            LOGGER.info(String.format("Problem move element in '%s' direction. Cause: %s",event.getCode().toString(),e.getMessage()),e);
         }
     }
 }
