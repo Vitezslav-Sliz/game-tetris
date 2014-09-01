@@ -1,6 +1,6 @@
 package info.sliz.game.tetris.engine.impl;
 
-import info.sliz.game.tetris.engine.command.CommandMove;
+import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayAuto;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
@@ -8,8 +8,11 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
-import info.sliz.game.tetris.engine.elements.playcube.FxElement;
+import info.sliz.game.tetris.engine.elements.basic.impl.FxInplaceElement;
+import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.elements.playcube.impl.FxDotElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxTripleElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxDoubleElement;
 import info.sliz.game.tetris.engine.gamespace.impl.FxGameSpace;
 
 import java.util.ArrayList;
@@ -30,24 +33,24 @@ public class Game extends Observable implements Observer{
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
     
     private final FxGameSpace space;
-    private final Set<CommandMove> commands = new HashSet<CommandMove>();
-    private final List<FxDotElement> elements = new ArrayList<FxDotElement>();
-    private FxElement element;
+    private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
+    private final List<FxInplaceElement> elements = new ArrayList<FxInplaceElement>();
+    private FxPlayableElement element;
     private GameRunner runner;
     
     public Game() {
         space = new FxGameSpace(5, 10, 10, 0.15);
         
-        this.element = new FxDotElement(0,0,-85,10,true);
+        this.element = new FxDotElement(0,0,-85,10);
         commands.add(new CommandPlayLeft(this.element,10,-25));
         commands.add(new CommandPlayRight(this.element,10,25));
         commands.add(new CommandPlayUp(this.element,10,-25));
         commands.add(new CommandPlayDown(this.element,10,25));
         commands.add(new CommandPlaySpace(this.element,10,-5));
-        CommandMove c = new CommandPlayAuto(this.element,10,-5);
+        CommandPlay c = new CommandPlayAuto(this.element,10,-5);
         commands.add(c);
 
-        for (CommandMove cs : commands) {
+        for (CommandPlay cs : commands) {
             cs.addObserver(this);
         }
         runner = new GameRunner(500,c);
@@ -71,7 +74,7 @@ public class Game extends Observable implements Observer{
             
             LOGGER.debug("Elements not movable create");
             for (Point3D point : element.getControlPoints()) {
-                FxDotElement el = new FxDotElement(point.getX(), point.getY(), point.getZ(), 10, false);
+                FxInplaceElement el = new FxInplaceElement(point.getX(), point.getY(), point.getZ(), 10);             
                 el.setColor(Color.YELLOW);
                 this.elements.add(el);               
             }
@@ -82,8 +85,18 @@ public class Game extends Observable implements Observer{
         notifyObservers();
     }
     private void updateToNewElement(){
-       this.element = new FxDotElement(0,0,-85,10,true);
-       for (CommandMove commandMove : commands) {
+       double r = Math.random();
+       if (r < 0.33){
+           this.element = new FxDotElement(0,0,-85,10);
+       }
+       if (r >= 0.33 && r < 0.66){
+           this.element = new FxTripleElement(0,0,-85,10);          
+       }
+       if (r >= 0.66 ){
+           this.element = new FxDoubleElement(0,0,-85,10);          
+       }
+       
+       for (CommandPlay commandMove : commands) {
            commandMove.setElement(this.element);
        }
     }

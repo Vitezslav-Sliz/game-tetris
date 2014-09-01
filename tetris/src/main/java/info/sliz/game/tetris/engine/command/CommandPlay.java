@@ -2,22 +2,22 @@ package info.sliz.game.tetris.engine.command;
 
 import java.util.Observable;
 
-import info.sliz.game.tetris.engine.elements.playcube.FxElement;
+import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 
-public abstract class CommandMove extends Observable implements ICommand {
+public abstract class CommandPlay extends Observable implements ICommand {
 
-    protected FxElement el;
+    protected FxPlayableElement el;
     protected double moveStep;
     protected double moveBoundary;
     
-    public CommandMove(final FxElement el, final double step, final double boundary) {
+    public CommandPlay(final FxPlayableElement el, final double step, final double boundary) {
         super();
         this.el = el;
         this.moveStep = step;
         this.moveBoundary = boundary;
     }
     
-    public void setElement(FxElement element) {
+    public void setElement(FxPlayableElement element) {
         this.el = element;
     }
     

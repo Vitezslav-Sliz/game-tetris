@@ -1,28 +1,31 @@
-package info.sliz.game.tetris.engine.elements.playcube.impl;
+package info.sliz.game.tetris.engine.elements.basic.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
+import info.sliz.game.tetris.config.Configuration;
 import info.sliz.game.tetris.engine.elements.basic.FxCube;
-import info.sliz.game.tetris.engine.elements.basic.impl.FxPlayCube;
-import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
+import info.sliz.game.tetris.engine.elements.playcube.FxElement;
 
-public class FxDotElement extends FxPlayableElement {
+public class FxInplaceElement extends FxElement {
     private FxCube cube;
     private final int size;
-    
-    public FxDotElement(final double x, final double y, final double z,final int size) {
+    private Color color = Configuration.COLOR_CUBE;
+
+    public FxInplaceElement(final double x, final double y, final double z,final int size) {
         super(x,y,z);
         this.size = size;
-        this.cube = new FxPlayCube(this.size);
+        this.cube = new FxStaticCube(this.size);
+        this.cube.setColor(color);
         this.getChildren().add(cube);
     }
   
     public void setColor(final Color color){
         this.cube.setColor(color);
     }
+
     @Override
     public Set<Point3D> getControlPoints() {
         Set<Point3D> ret = new HashSet<Point3D>(1); 

@@ -1,13 +1,14 @@
 package info.sliz.game.tetris.engine.command.impl;
 
 import javafx.geometry.Point3D;
-import info.sliz.game.tetris.engine.command.CommandMove;
+import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.elements.playcube.FxElement;
+import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable.MOVE;
 
-public class CommandPlayAuto extends CommandMove {
+public class CommandPlayAuto extends CommandPlay {
 
-    public CommandPlayAuto(FxElement el, double step, double boundary) {
+    public CommandPlayAuto(FxPlayableElement el, double step, double boundary) {
         super(el, step, boundary);
     }
     
