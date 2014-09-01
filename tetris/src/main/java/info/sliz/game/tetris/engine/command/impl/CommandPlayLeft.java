@@ -25,6 +25,6 @@ public class CommandPlayLeft extends CommandMove implements ICommand{
             }
         }
         el.play(MOVE.LEFT, moveStep);
+        super.execute();
     }
-    
 }

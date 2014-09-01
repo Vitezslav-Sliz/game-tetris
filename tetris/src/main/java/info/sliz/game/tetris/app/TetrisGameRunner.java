@@ -1,6 +1,8 @@
 package info.sliz.game.tetris.app;
 
 import java.util.Locale;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,16 +12,19 @@ import info.sliz.game.tetris.engine.impl.CoreEngine;
 import info.sliz.game.tetris.translate.ITranslator;
 import info.sliz.game.tetris.translate.Translate.KEY;
 import info.sliz.game.tetris.translate.impl.Translator;
+import info.sliz.game.tetris.ui.command.impl.ExitCommand;
 import info.sliz.game.tetris.ui.graphic.control.KeyboardControl;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-public class TetrisGameRunner extends Application {
+public class TetrisGameRunner extends Application implements Observer{
     private static final Logger LOGGER = LoggerFactory.getLogger(TetrisGameRunner.class);
     private final ITranslator trans = Translator.getInstance();
     private final Group root = new Group();
@@ -37,6 +42,8 @@ public class TetrisGameRunner extends Application {
         ambient.setColor(Configuration.COLOR_LIGHT);
         world.getChildren().addAll(ambient);
         world.getChildren().addAll(engine.getElements());
+        engine.addObserver(this);
+        
     }
 
     @Override
@@ -52,10 +59,20 @@ public class TetrisGameRunner extends Application {
         primaryStage.show();
         scene.setCamera(camera);
         scene.setOnKeyPressed(ctrl);
+        scene.getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
+            public void handle(WindowEvent ev) {
+                new ExitCommand(engine).execute();
+            }
+        });
     }
 
     public static void main(String[] args) {
         System.setProperty("prism.dirtyopts", "false");
         launch(args);
+    }
+
+    public void update(Observable o, Object arg) {
+        world.getChildren().removeAll(engine.getElements());
+        world.getChildren().addAll(engine.getElements());
     }
 }

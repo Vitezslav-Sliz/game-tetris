@@ -2,6 +2,7 @@ package info.sliz.game.tetris.engine.command;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Commands {
 
@@ -12,5 +13,15 @@ public class Commands {
     }
     public ICommand get(Class<? extends ICommand> command){
         return this.commands.get(command);
+    }
+    
+    public void putAll(Set<ICommand> commands) {
+        for (ICommand iCommand : commands) {
+            this.put(iCommand);
+        }
+    }
+    
+    public int size() {
+        return this.commands.size();
     }
 }

@@ -1,8 +1,10 @@
 package info.sliz.game.tetris.engine.command;
 
+import java.util.Observable;
+
 import info.sliz.game.tetris.engine.elements.playcube.FxElement;
 
-public abstract class CommandMove implements ICommand {
+public abstract class CommandMove extends Observable implements ICommand {
 
     protected FxElement el;
     protected double moveStep;
@@ -15,5 +17,13 @@ public abstract class CommandMove implements ICommand {
         this.moveBoundary = boundary;
     }
     
-    public abstract void execute() throws CommandException;
+    public void setElement(FxElement element) {
+        this.el = element;
+    }
+    
+    public void execute() throws CommandException{
+        setChanged();
+        notifyObservers();
+    }
+
 }

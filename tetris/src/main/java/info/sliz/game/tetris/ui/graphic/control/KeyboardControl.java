@@ -6,6 +6,7 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
+import info.sliz.game.tetris.engine.command.impl.CommandStartGame;
 import info.sliz.game.tetris.engine.impl.CoreEngine;
 
 import org.slf4j.Logger;
@@ -41,11 +42,14 @@ public class KeyboardControl implements EventHandler<KeyEvent> {
             case SPACE:
                 this.eng.getCommand(CommandPlaySpace.class).execute();
                 break;
+            case S:
+                this.eng.getCommand(CommandStartGame.class).execute();
+                break;
             default:
                 break;
             }
         } catch (CommandException e) {
-            LOGGER.info(String.format("Problem move element in '%s' direction. Cause: %s",event.getCode().toString(),e.getMessage()));
+            LOGGER.info(String.format("Problem with Key '%s'. Cause: %s",event.getCode().toString(),e.getMessage()));
         }
     }
 }

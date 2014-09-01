@@ -25,6 +25,7 @@ public class CommandPlayUp extends CommandMove implements ICommand{
             }
         }
         el.play(MOVE.UP, moveStep);
+        super.execute();
     }
 
 }

@@ -25,10 +25,12 @@ public class CommandPlaySpace extends CommandMove {
             for (Point3D p : el.getControlPoints()) {
                 if ((p.getZ()+moveStep) > moveBoundary){
                     el.setPlayable(false);
+                    super.execute();
                     return;
                 }
             }
             el.play(MOVE.FORWARD, moveStep);
+            super.execute();
         }
     }
 }
