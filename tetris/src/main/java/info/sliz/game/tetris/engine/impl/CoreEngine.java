@@ -5,6 +5,7 @@ import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
+import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 import info.sliz.game.tetris.engine.elements.playcube.FxElement;
 import info.sliz.game.tetris.engine.elements.playcube.impl.FxDotElement;
@@ -33,6 +34,7 @@ public class CoreEngine {
         this.commands.put(new CommandPlayRight(this.active,10,25));
         this.commands.put(new CommandPlayUp(this.active,10,-25));
         this.commands.put(new CommandPlayDown(this.active,10,25));
+        this.commands.put(new CommandPlaySpace(this.active,10,-5));
         
     }
     
