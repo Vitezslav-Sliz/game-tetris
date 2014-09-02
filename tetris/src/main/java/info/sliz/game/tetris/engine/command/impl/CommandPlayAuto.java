@@ -2,7 +2,6 @@ package info.sliz.game.tetris.engine.command.impl;
 
 import javafx.geometry.Point3D;
 import info.sliz.game.tetris.engine.command.CommandPlay;
-import info.sliz.game.tetris.engine.elements.playcube.FxElement;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable.MOVE;
 

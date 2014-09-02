@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
-import info.sliz.game.tetris.engine.elements.playcube.FxElement;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable.MOVE;
 
