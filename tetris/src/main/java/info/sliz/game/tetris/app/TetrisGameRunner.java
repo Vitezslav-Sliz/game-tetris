@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import info.sliz.game.tetris.config.Configuration;
+import info.sliz.game.tetris.engine.command.ICommand.CommandException;
+import info.sliz.game.tetris.engine.command.impl.CommandStartGame;
 import info.sliz.game.tetris.engine.impl.CoreEngine;
 import info.sliz.game.tetris.translate.ITranslator;
 import info.sliz.game.tetris.translate.Translate.KEY;
@@ -64,11 +66,18 @@ public class TetrisGameRunner extends Application implements Observer{
                 new ExitCommand(engine).execute();
             }
         });
+        try {
+			this.engine.getCommand(CommandStartGame.class).execute();
+		} catch (CommandException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public static void main(String[] args) {
         System.setProperty("prism.dirtyopts", "false");
         launch(args);
+        
     }
 
     public void update(Observable o, Object arg) {
