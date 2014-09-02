@@ -27,7 +27,8 @@ public class CommandPlaySpace extends CommandPlay {
             for (Point3D p : element.getControlPoints()) {
                 Point3D mx = new Point3D(p.getX(),p.getY(),p.getZ()+moveStep);
                 if (this.checkCollision(mx)){
-                    throw new MoveCommandException("Can't move: colide with another elements");
+                	element.setPlayable(false);
+                	return;
                 }
             }
             element.play(MOVE.FORWARD, moveStep);

@@ -45,7 +45,7 @@ public class Game implements ElementListener{
     
     public Game() {
         this.e = new GameChangedEvent(this);
-        space = new FxGameSpace(5, 10, 10, 0.15, Color.YELLOW,Color.BLUE,Color.RED);
+        space = new FxGameSpace(5, 10, 10, 0.15, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.AQUA, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE);
         
         col.add(space);
         
