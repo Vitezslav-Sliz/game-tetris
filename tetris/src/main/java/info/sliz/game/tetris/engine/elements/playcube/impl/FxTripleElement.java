@@ -8,22 +8,22 @@ import info.sliz.game.tetris.engine.elements.basic.FxCube;
 import info.sliz.game.tetris.engine.elements.basic.impl.FxPlayCube;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 
-public class FxTripleElement extends FxPlayableElement {
+public final class FxTripleElement extends FxPlayableElement {
 
     private FxCube masterCube;
     private FxCube rightCube;
     private FxCube leftCube;
     private final int size;
     
-    public FxTripleElement(final double x, final double y, final double z,final int size) {
-        super(x,y,z);
+    public FxTripleElement(final Point3D initial,final int size) {
+        super(initial);
         this.size = size;
         this.masterCube = new FxPlayCube(this.size);
         this.leftCube = new FxPlayCube(this.size);
         this.rightCube = new FxPlayCube(this.size);
 
-        leftCube.setTranslateX(x-this.size);
-        rightCube.setTranslateX(x+this.size);
+        leftCube.setTranslateX(initial.getX()-this.size);
+        rightCube.setTranslateX(initial.getX()+this.size);
        
         this.getChildren().add(this.masterCube);
         this.getChildren().add(this.leftCube);

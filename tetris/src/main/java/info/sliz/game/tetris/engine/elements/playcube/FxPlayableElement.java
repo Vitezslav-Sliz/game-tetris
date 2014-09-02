@@ -1,10 +1,12 @@
 package info.sliz.game.tetris.engine.elements.playcube;
 
+import javafx.geometry.Point3D;
+
 public abstract class FxPlayableElement extends FxMovableElement implements IPlayable{
 
     protected boolean playable;
-    public FxPlayableElement(double x, double y, double z) {
-        super(x, y, z);
+    public FxPlayableElement(final Point3D initial) {
+        super(initial);
         this.playable = true;
     }
     public void play(MOVE direction, double step) {

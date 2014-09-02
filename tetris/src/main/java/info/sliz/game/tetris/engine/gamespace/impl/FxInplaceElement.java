@@ -13,8 +13,8 @@ public class FxInplaceElement extends FxMovableElement implements ICollision{
     private final int size;
     private Color color = Configuration.COLOR_CUBE;
 
-    public FxInplaceElement(final double x, final double y, final double z,final int size) {
-        super(x,y,z);
+    public FxInplaceElement(final Point3D initial,final int size) {
+        super(initial);
         this.size = size;
         this.cube = new FxStaticCube(this.size);
         this.cube.setColor(color);

@@ -11,12 +11,11 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 import info.sliz.game.tetris.engine.elements.ICollision;
+import info.sliz.game.tetris.engine.elements.IPlaybleElementGenerator;
+import info.sliz.game.tetris.engine.elements.impl.RandomFxPlayableElementGenerator;
 import info.sliz.game.tetris.engine.elements.playcube.ElementChanged;
 import info.sliz.game.tetris.engine.elements.playcube.ElementListener;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
-import info.sliz.game.tetris.engine.elements.playcube.impl.FxDotElement;
-import info.sliz.game.tetris.engine.elements.playcube.impl.FxTripleElement;
-import info.sliz.game.tetris.engine.elements.playcube.impl.FxDoubleElement;
 import info.sliz.game.tetris.engine.gamespace.impl.FxGameSpace;
 import info.sliz.game.tetris.engine.gamespace.impl.FxInplaceElement;
 
@@ -34,22 +33,27 @@ import javafx.scene.paint.Color;
 
 public class Game implements ElementListener{
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
+    
     private final GameChangedEvent e;
     private GameListener listener;
+    
     private final FxGameSpace space;
     private final Set<ICollision> col = new HashSet<ICollision>();
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
     private final List<FxInplaceElement> elements = new ArrayList<FxInplaceElement>();
     private FxPlayableElement element;
+
+    private final IPlaybleElementGenerator generator;
     private GameRunner runner;
     
     public Game() {
         this.e = new GameChangedEvent(this);
-        space = new FxGameSpace(5, 10, 10, 0.15, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.AQUA, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE);
+        this.space = new FxGameSpace(5, 10, 10, 0.15, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE);
+        this.generator = new RandomFxPlayableElementGenerator(new Point3D(0, 0, -85), 10);
+        this.element = this.generator.generateElement();
         
         col.add(space);
         
-        this.element = new FxDotElement(0,0,-85,10);
         commands.add(new CommandPlayLeft(this.element,10,col));
         commands.add(new CommandPlayRight(this.element,10,col));
         commands.add(new CommandPlayUp(this.element,10,col));
@@ -79,17 +83,7 @@ public class Game implements ElementListener{
         this.listener = listener;
     }
     private void updateToNewElement(){
-       double r = Math.random();
-       if (r < 0.33){
-           this.element = new FxDotElement(0,0,-85,10);
-       }
-       if (r >= 0.33 && r < 0.66){
-           this.element = new FxTripleElement(0,0,-85,10);          
-       }
-       if (r >= 0.66 ){
-           this.element = new FxDoubleElement(0,0,-85,10);          
-       }
-       
+       this.element = this.generator.generateElement();
        for (CommandPlay commandMove : commands) {
            commandMove.setPlayableElement(this.element);
        }
@@ -110,7 +104,7 @@ public class Game implements ElementListener{
         if (!this.element.isPlayable()){
             LOGGER.debug("Elements not movable create");
             for (Point3D point : this.element.getControlPoints()) {
-                FxInplaceElement el = new FxInplaceElement(point.getX(), point.getY(), point.getZ(), 10);
+                FxInplaceElement el = new FxInplaceElement(point, 10);
                 col.add(el);
                 el.setColor(this.space.getColor(point));
                 this.elements.add(el);

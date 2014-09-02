@@ -10,16 +10,16 @@ public abstract class FxMovableElement extends Group implements IMovable {
    
     private ElementListener listener;
     private final ElementChanged event;
-    public FxMovableElement(final double x, final double y, final double z,boolean playable) {
+    public FxMovableElement(final Point3D initial, boolean playable) {
         super();
-        this.setTranslateX(x);
-        this.setTranslateY(y);
-        this.setTranslateZ(z);
+        this.setTranslateX(initial.getX());
+        this.setTranslateY(initial.getY());
+        this.setTranslateZ(initial.getZ());
         this.event = new ElementChanged(this);
     }
 
-    public FxMovableElement(final double x, final double y, final double z) {
-        this(x,y,z,false);
+    public FxMovableElement(final Point3D initial) {
+        this(initial,false);
     }
     
     public void move(final MOVE direction, final double step) {

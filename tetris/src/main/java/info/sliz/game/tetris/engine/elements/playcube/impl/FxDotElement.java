@@ -9,12 +9,12 @@ import info.sliz.game.tetris.engine.elements.basic.FxCube;
 import info.sliz.game.tetris.engine.elements.basic.impl.FxPlayCube;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 
-public class FxDotElement extends FxPlayableElement {
+public final class FxDotElement extends FxPlayableElement {
     private FxCube cube;
     private final int size;
     
-    public FxDotElement(final double x, final double y, final double z,final int size) {
-        super(x,y,z);
+    public FxDotElement(final Point3D initial,final int size) {
+        super(initial);
         this.size = size;
         this.cube = new FxPlayCube(this.size);
         this.getChildren().add(cube);
