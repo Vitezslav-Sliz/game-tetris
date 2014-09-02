@@ -45,7 +45,7 @@ public class Game implements ElementListener{
     
     public Game() {
         this.e = new GameChangedEvent(this);
-        space = new FxGameSpace(5, 10, 10, 0.15);
+        space = new FxGameSpace(5, 10, 10, 0.15, Color.YELLOW,Color.BLUE,Color.RED);
         
         col.add(space);
         
@@ -112,7 +112,7 @@ public class Game implements ElementListener{
             for (Point3D point : this.element.getControlPoints()) {
                 FxInplaceElement el = new FxInplaceElement(point.getX(), point.getY(), point.getZ(), 10);
                 col.add(el);
-                el.setColor(Color.YELLOW);
+                el.setColor(this.space.getColor(point));
                 this.elements.add(el);
             }
             updateToNewElement();

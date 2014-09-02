@@ -31,12 +31,12 @@ final class GameRunner extends Thread{
     public void run() {
         LOGGER.debug(String.format("Running game... with '%s' ms time interval",this.time));
         while (run) {
-            QUEUE.execute(new RunnerTask(move));
             try {
                 Thread.sleep(this.time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }               
+            QUEUE.execute(new RunnerTask(move));
         }
         QUEUE.shutdown();
         LOGGER.debug("Stopping game... ");
