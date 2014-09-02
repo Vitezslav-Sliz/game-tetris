@@ -27,7 +27,7 @@ public class CommandPlayUp extends CommandPlay implements ICommand{
                 throw new MoveCommandException("Can't move: colide with another elements");
             }
         }
-        el.play(MOVE.UP, moveStep);
+        element.play(MOVE.UP, moveStep);
     }
 
 }

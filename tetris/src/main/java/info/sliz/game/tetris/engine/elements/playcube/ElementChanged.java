@@ -6,7 +6,7 @@ public class ElementChanged extends EventObject {
 
     private static final long serialVersionUID = -27069799314247044L;
     
-    public ElementChanged(FxElement source) {
+    public ElementChanged(FxMovableElement source) {
         super(source);
     }
 }

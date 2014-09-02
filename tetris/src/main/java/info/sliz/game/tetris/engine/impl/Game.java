@@ -2,7 +2,6 @@ package info.sliz.game.tetris.engine.impl;
 
 import info.sliz.game.tetris.engine.GameChangedEvent;
 import info.sliz.game.tetris.engine.GameListener;
-import info.sliz.game.tetris.engine.command.CommandElement;
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.impl.CommandChangeToNotPlayable;
@@ -13,7 +12,6 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 import info.sliz.game.tetris.engine.elements.ICollision;
-import info.sliz.game.tetris.engine.elements.basic.impl.FxInplaceElement;
 import info.sliz.game.tetris.engine.elements.playcube.ElementChanged;
 import info.sliz.game.tetris.engine.elements.playcube.ElementListener;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
@@ -21,6 +19,7 @@ import info.sliz.game.tetris.engine.elements.playcube.impl.FxDotElement;
 import info.sliz.game.tetris.engine.elements.playcube.impl.FxTripleElement;
 import info.sliz.game.tetris.engine.elements.playcube.impl.FxDoubleElement;
 import info.sliz.game.tetris.engine.gamespace.impl.FxGameSpace;
+import info.sliz.game.tetris.engine.gamespace.impl.FxInplaceElement;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -98,7 +97,7 @@ public class Game implements ElementListener{
        
        for (CommandPlay commandMove : commands) {
            System.out.println("Change commands to new element");
-           commandMove.setElement(this.element);
+           commandMove.setPlayableElement(this.element);
        }
        this.element.setEventListener(this);
     }

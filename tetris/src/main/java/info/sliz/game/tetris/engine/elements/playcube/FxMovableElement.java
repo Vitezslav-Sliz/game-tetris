@@ -6,11 +6,11 @@ import java.util.Set;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 
-public abstract class FxElement extends Group implements IMovable {
+public abstract class FxMovableElement extends Group implements IMovable {
    
     private ElementListener listener;
     private final ElementChanged event;
-    public FxElement(final double x, final double y, final double z,boolean playable) {
+    public FxMovableElement(final double x, final double y, final double z,boolean playable) {
         super();
         this.setTranslateX(x);
         this.setTranslateY(y);
@@ -18,7 +18,7 @@ public abstract class FxElement extends Group implements IMovable {
         this.event = new ElementChanged(this);
     }
 
-    public FxElement(final double x, final double y, final double z) {
+    public FxMovableElement(final double x, final double y, final double z) {
         this(x,y,z,false);
     }
     

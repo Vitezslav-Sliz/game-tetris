@@ -29,7 +29,7 @@ public class CommandPlayRight extends CommandPlay implements ICommand{
                 throw new MoveCommandException("Can't move: colide with another elements");
             }
         }
-        el.play(MOVE.RIGHT, moveStep);
+        element.play(MOVE.RIGHT, moveStep);
     }
 
 }

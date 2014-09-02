@@ -30,7 +30,7 @@ public class CommandPlaySpace extends CommandPlay {
                     throw new MoveCommandException("Can't move: colide with another elements");
                 }
             }
-            el.play(MOVE.FORWARD, moveStep);
+            element.play(MOVE.FORWARD, moveStep);
         }
     }
 }

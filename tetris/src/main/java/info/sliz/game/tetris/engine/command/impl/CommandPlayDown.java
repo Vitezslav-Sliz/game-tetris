@@ -29,7 +29,7 @@ public class CommandPlayDown extends CommandPlay implements ICommand{
                 throw new MoveCommandException("Can't move: colide with another elements");
             }
         }
-        el.play(MOVE.DOWN, moveStep);
+        element.play(MOVE.DOWN, moveStep);
     }
 
 }

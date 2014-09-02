@@ -1,6 +1,6 @@
 package info.sliz.game.tetris.engine.elements.playcube;
 
-public abstract class FxPlayableElement extends FxElement implements IPlayable{
+public abstract class FxPlayableElement extends FxMovableElement implements IPlayable{
 
     protected boolean playable;
     public FxPlayableElement(double x, double y, double z) {
