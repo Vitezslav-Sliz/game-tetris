@@ -31,6 +31,6 @@ public class FxInplaceElement extends FxMovableElement implements ICollision{
     }
 
     public boolean Collidate(Point3D point) {
-        return false;
+        return point.getX() == this.getTranslateX() && point.getY() == this.getTranslateY() && point.getZ() == this.getTranslateZ();
     }
 }

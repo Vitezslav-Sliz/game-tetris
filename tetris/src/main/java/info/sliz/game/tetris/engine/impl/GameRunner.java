@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
-import info.sliz.game.tetris.engine.command.ICommand.MoveCommandException;
 
 final class GameRunner extends Thread{
     private static ExecutorService QUEUE = Executors.newFixedThreadPool(10);
@@ -20,12 +19,10 @@ final class GameRunner extends Thread{
     private final int time;
     private boolean run;
     private final ICommand move;
-    private final ICommand change;
-    public GameRunner(final int time, final ICommand move, final ICommand change) {
+    public GameRunner(final int time, final ICommand move) {
         this.time = time;
         this.run = true;
         this.move = move;
-        this.change = change;
     }
     public void Stop(){
         this.run = false;
@@ -34,7 +31,7 @@ final class GameRunner extends Thread{
     public void run() {
         LOGGER.debug(String.format("Running game... with '%s' ms time interval",this.time));
         while (run) {
-            QUEUE.execute(new RunnerTask(move,change));
+            QUEUE.execute(new RunnerTask(move));
             try {
                 Thread.sleep(this.time);
             } catch (InterruptedException e) {
@@ -47,11 +44,9 @@ final class GameRunner extends Thread{
     final class RunnerTask extends Task<Void> {
 
         private final ICommand move;
-        private final ICommand change;
 
-        public RunnerTask(final ICommand move, final ICommand change) {
+        public RunnerTask(final ICommand move) {
             this.move = move;
-            this.change = change;
         }
 
         @Override
@@ -61,12 +56,6 @@ final class GameRunner extends Thread{
                 public void run() {
                     try {
                         move.execute();
-                    } catch (MoveCommandException e1) {
-                        try {
-                            change.execute();
-                        } catch (CommandException e) {
-                            LOGGER.debug("Problem with change element",e);
-                        }
                     } catch (CommandException e) {
                         LOGGER.debug("Problem with move",e);
                     }

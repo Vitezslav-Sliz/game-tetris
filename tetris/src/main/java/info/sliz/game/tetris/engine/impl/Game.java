@@ -4,7 +4,6 @@ import info.sliz.game.tetris.engine.GameChangedEvent;
 import info.sliz.game.tetris.engine.GameListener;
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
-import info.sliz.game.tetris.engine.command.impl.CommandChangeToNotPlayable;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayAuto;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
@@ -38,6 +37,7 @@ public class Game implements ElementListener{
     private final GameChangedEvent e;
     private GameListener listener;
     private final FxGameSpace space;
+    private final Set<ICollision> col = new HashSet<ICollision>();
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
     private final List<FxInplaceElement> elements = new ArrayList<FxInplaceElement>();
     private FxPlayableElement element;
@@ -47,9 +47,7 @@ public class Game implements ElementListener{
         this.e = new GameChangedEvent(this);
         space = new FxGameSpace(5, 10, 10, 0.15);
         
-        Set<ICollision> col = new HashSet<ICollision>();
         col.add(space);
-        col.addAll(elements);
         
         this.element = new FxDotElement(0,0,-85,10);
         commands.add(new CommandPlayLeft(this.element,10,col));
@@ -60,12 +58,9 @@ public class Game implements ElementListener{
         CommandPlay m = new CommandPlayAuto(this.element,10,col);
         commands.add(m);
         
-        CommandPlay c = new CommandChangeToNotPlayable(this.element);
-        commands.add(c);
-        
         this.element.setEventListener(this);
 
-        runner = new GameRunner(500,m,c);
+        runner = new GameRunner(1000,m);
     }
 
     public Set<ICommand> getCommands() {
@@ -96,7 +91,6 @@ public class Game implements ElementListener{
        }
        
        for (CommandPlay commandMove : commands) {
-           System.out.println("Change commands to new element");
            commandMove.setPlayableElement(this.element);
        }
        this.element.setEventListener(this);
@@ -116,7 +110,8 @@ public class Game implements ElementListener{
         if (!this.element.isPlayable()){
             LOGGER.debug("Elements not movable create");
             for (Point3D point : this.element.getControlPoints()) {
-                FxInplaceElement el = new FxInplaceElement(point.getX(), point.getY(), point.getZ(), 10);             
+                FxInplaceElement el = new FxInplaceElement(point.getX(), point.getY(), point.getZ(), 10);
+                col.add(el);
                 el.setColor(Color.YELLOW);
                 this.elements.add(el);
             }
