@@ -1,29 +1,24 @@
 package info.sliz.game.tetris.engine.command;
 
-import java.util.Observable;
-
+import info.sliz.game.tetris.engine.elements.ICollision;
+import info.sliz.game.tetris.engine.elements.playcube.FxElement;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
+import info.sliz.game.tetris.engine.elements.playcube.IPlayable;
 
-public abstract class CommandPlay extends Observable implements ICommand {
+import java.util.Set;
 
-    protected FxPlayableElement el;
-    protected double moveStep;
-    protected double moveBoundary;
+public abstract class CommandPlay extends CommandMove {
     
-    public CommandPlay(final FxPlayableElement el, final double step, final double boundary) {
-        super();
+    protected IPlayable el;
+    public CommandPlay(final FxPlayableElement el,final double step,final Set<ICollision> colidate) {
+        super(el, step, colidate);
         this.el = el;
-        this.moveStep = step;
-        this.moveBoundary = boundary;
-    }
-    
-    public void setElement(FxPlayableElement element) {
-        this.el = element;
-    }
-    
-    public void execute() throws CommandException{
-        setChanged();
-        notifyObservers();
     }
 
+    @Override
+    public void setElement(FxElement element) {
+        super.setElement(element);
+        el = (IPlayable) element;
+    }
+    public abstract void execute() throws CommandException ;
 }

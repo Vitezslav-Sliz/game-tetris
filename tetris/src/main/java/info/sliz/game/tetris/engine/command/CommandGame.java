@@ -10,5 +10,5 @@ public abstract class CommandGame implements ICommand{
         super();
         this.game = game;
     }
-    
+    public abstract void execute() throws CommandException;
 }

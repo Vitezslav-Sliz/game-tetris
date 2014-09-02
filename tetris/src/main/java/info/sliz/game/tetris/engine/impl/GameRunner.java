@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
+import info.sliz.game.tetris.engine.command.ICommand.MoveCommandException;
 
 final class GameRunner extends Thread{
     private static ExecutorService QUEUE = Executors.newFixedThreadPool(10);
@@ -18,11 +19,13 @@ final class GameRunner extends Thread{
     
     private final int time;
     private boolean run;
-    private final ICommand c;
-    public GameRunner(final int time, ICommand c) {
+    private final ICommand move;
+    private final ICommand change;
+    public GameRunner(final int time, final ICommand move, final ICommand change) {
         this.time = time;
         this.run = true;
-        this.c = c;
+        this.move = move;
+        this.change = change;
     }
     public void Stop(){
         this.run = false;
@@ -31,7 +34,7 @@ final class GameRunner extends Thread{
     public void run() {
         LOGGER.debug(String.format("Running game... with '%s' ms time interval",this.time));
         while (run) {
-            QUEUE.execute(new RunnerTask(c));
+            QUEUE.execute(new RunnerTask(move,change));
             try {
                 Thread.sleep(this.time);
             } catch (InterruptedException e) {
@@ -43,10 +46,12 @@ final class GameRunner extends Thread{
     }
     final class RunnerTask extends Task<Void> {
 
-        private final ICommand c;
+        private final ICommand move;
+        private final ICommand change;
 
-        public RunnerTask(ICommand c) {
-            this.c = c;
+        public RunnerTask(final ICommand move, final ICommand change) {
+            this.move = move;
+            this.change = change;
         }
 
         @Override
@@ -55,9 +60,15 @@ final class GameRunner extends Thread{
             Platform.runLater(new Runnable() {
                 public void run() {
                     try {
-                        c.execute();
-                    } catch (CommandException e1) {
-                        e1.printStackTrace();
+                        move.execute();
+                    } catch (MoveCommandException e1) {
+                        try {
+                            change.execute();
+                        } catch (CommandException e) {
+                            LOGGER.debug("Problem with change element",e);
+                        }
+                    } catch (CommandException e) {
+                        LOGGER.debug("Problem with move",e);
                     }
                 }
             });

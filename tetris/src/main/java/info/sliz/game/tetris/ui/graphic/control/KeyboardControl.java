@@ -1,5 +1,6 @@
 package info.sliz.game.tetris.ui.graphic.control;
 
+import info.sliz.game.tetris.engine.IEngine;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
@@ -7,7 +8,6 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 import info.sliz.game.tetris.engine.command.impl.CommandStartGame;
-import info.sliz.game.tetris.engine.impl.CoreEngine;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +17,9 @@ import javafx.scene.input.KeyEvent;
 
 public class KeyboardControl implements EventHandler<KeyEvent> {
     private static final Logger LOGGER = LoggerFactory.getLogger(KeyboardControl.class);
-    private CoreEngine eng;
+    private IEngine eng;
     
-    public KeyboardControl(final CoreEngine engine) {
+    public KeyboardControl(final IEngine engine) {
         this.eng = engine;
     }
 

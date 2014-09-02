@@ -21,7 +21,13 @@ public abstract class FxPlayableElement extends FxElement implements IPlayable{
     }
 
     public void setPlayable(final boolean play) {
+        boolean throwEvent = false;
+        if (this.playable!=play){
+            throwEvent = true;
+        }
         this.playable = play;
-        
+        if (throwEvent){
+            this.throwEvent();
+        }
     }
 }

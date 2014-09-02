@@ -1,15 +1,13 @@
 package info.sliz.game.tetris.engine.elements.basic.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import info.sliz.game.tetris.config.Configuration;
+import info.sliz.game.tetris.engine.elements.ICollision;
 import info.sliz.game.tetris.engine.elements.basic.FxCube;
 import info.sliz.game.tetris.engine.elements.playcube.FxElement;
 
-public class FxInplaceElement extends FxElement {
+public class FxInplaceElement extends FxElement implements ICollision{
     private FxCube cube;
     private final int size;
     private Color color = Configuration.COLOR_CUBE;
@@ -27,15 +25,11 @@ public class FxInplaceElement extends FxElement {
     }
 
     @Override
-    public Set<Point3D> getControlPoints() {
-        Set<Point3D> ret = new HashSet<Point3D>(1); 
-        ret.add(new Point3D(this.getTranslateX(),this.getTranslateY(),this.getTranslateZ()));
-        return ret;
-    }
-    
-    @Override
     public String toString() {
         return String.format("%s[%.3f|%.3f|%.3f]@%s",getClass().getSimpleName(),this.getTranslateX(),this.getTranslateY(),getTranslateZ(),Integer.toHexString(hashCode()));
     }
 
+    public boolean Collidate(Point3D point) {
+        return false;
+    }
 }

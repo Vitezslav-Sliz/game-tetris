@@ -11,6 +11,15 @@ public interface ICommand {
         }
         
     }
+    public class MoveCommandException extends CommandException{
+        
+        private static final long serialVersionUID = 518827421380469331L;
+        
+        public MoveCommandException(String message) {
+            super(message);
+        }
+    }
+    
     
     public void execute() throws CommandException;
 }
