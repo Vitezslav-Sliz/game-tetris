@@ -1,7 +1,5 @@
 package info.sliz.game.tetris.engine.impl;
 
-import info.sliz.game.tetris.engine.GameChangedEvent;
-import info.sliz.game.tetris.engine.GameListener;
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayAuto;
@@ -12,10 +10,12 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 import info.sliz.game.tetris.engine.elements.ICollision;
 import info.sliz.game.tetris.engine.elements.IPlaybleElementGenerator;
+import info.sliz.game.tetris.engine.elements.event.ElementListener;
+import info.sliz.game.tetris.engine.elements.event.impl.ElementEvent;
 import info.sliz.game.tetris.engine.elements.impl.RandomFxPlayableElementGenerator;
-import info.sliz.game.tetris.engine.elements.playcube.ElementChanged;
-import info.sliz.game.tetris.engine.elements.playcube.ElementListener;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
+import info.sliz.game.tetris.engine.event.GameListener;
+import info.sliz.game.tetris.engine.event.impl.GameChangedEvent;
 import info.sliz.game.tetris.engine.gamespace.impl.FxGameSpace;
 import info.sliz.game.tetris.engine.gamespace.impl.FxInplaceElement;
 
@@ -99,7 +99,7 @@ public class Game implements ElementListener{
         return this.runner.isAlive();
     }
 
-    public void elementChanged(ElementChanged e) {
+    public void elementChanged(ElementEvent e) {
         LOGGER.debug("Game changed - reflect changes");
         if (!this.element.isPlayable()){
             LOGGER.debug("Elements not movable create");

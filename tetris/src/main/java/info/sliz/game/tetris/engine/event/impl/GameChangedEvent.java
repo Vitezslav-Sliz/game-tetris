@@ -1,4 +1,4 @@
-package info.sliz.game.tetris.engine;
+package info.sliz.game.tetris.engine.event.impl;
 
 import info.sliz.game.tetris.engine.impl.Game;
 

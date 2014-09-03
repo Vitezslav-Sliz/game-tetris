@@ -1,5 +1,8 @@
 package info.sliz.game.tetris.engine.elements.playcube;
 
+import info.sliz.game.tetris.engine.elements.event.ElementListener;
+import info.sliz.game.tetris.engine.elements.event.impl.ElementEvent;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,13 +12,14 @@ import javafx.scene.Group;
 public abstract class FxMovableElement extends Group implements IMovable {
    
     private ElementListener listener;
-    private final ElementChanged event;
+    private final ElementEvent event;
+    
     public FxMovableElement(final Point3D initial, boolean playable) {
         super();
         this.setTranslateX(initial.getX());
         this.setTranslateY(initial.getY());
         this.setTranslateZ(initial.getZ());
-        this.event = new ElementChanged(this);
+        this.event = new ElementEvent(this);
     }
 
     public FxMovableElement(final Point3D initial) {

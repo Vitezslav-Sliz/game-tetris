@@ -1,12 +1,12 @@
 package info.sliz.game.tetris.engine.impl;
 
-import info.sliz.game.tetris.engine.GameChangedEvent;
-import info.sliz.game.tetris.engine.GameListener;
 import info.sliz.game.tetris.engine.IEngine;
 import info.sliz.game.tetris.engine.command.Commands;
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.impl.CommandStartGame;
 import info.sliz.game.tetris.engine.command.impl.CommandStopGame;
+import info.sliz.game.tetris.engine.event.GameListener;
+import info.sliz.game.tetris.engine.event.impl.GameChangedEvent;
 
 import java.util.List;
 import java.util.Observable;
