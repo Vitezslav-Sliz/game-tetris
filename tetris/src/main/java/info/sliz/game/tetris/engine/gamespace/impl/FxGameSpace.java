@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import info.sliz.game.tetris.engine.elements.ICollision;
+import info.sliz.game.tetris.engine.elements.playcube.IElement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +82,15 @@ public class FxGameSpace extends Group implements ICollision {
         }
         return false;
     }
-
+    public boolean Collidate(IElement element) {
+        for (Point3D p : element.getBoundaries()) {
+            if(this.Collidate(p)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public Color getColor(Point3D point) {
         return this.colors.getColor(point);
     }

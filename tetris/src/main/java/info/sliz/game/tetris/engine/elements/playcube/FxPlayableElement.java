@@ -29,7 +29,7 @@ public abstract class FxPlayableElement extends FxMovableElement implements IPla
         }
         this.playable = play;
         if (throwEvent){
-            this.throwEvent();
+            this.throwEvent(this.event);
         }
     }
 }

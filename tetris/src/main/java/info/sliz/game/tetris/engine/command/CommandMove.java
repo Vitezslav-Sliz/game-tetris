@@ -5,8 +5,6 @@ import info.sliz.game.tetris.engine.elements.playcube.IMovable;
 
 import java.util.Set;
 
-import javafx.geometry.Point3D;
-
 public abstract class CommandMove implements ICommand {
 
 
@@ -24,9 +22,9 @@ public abstract class CommandMove implements ICommand {
     public void setMovableElement(IMovable element) {
         this.element = element;
     }
-    protected final boolean checkCollision(Point3D point){
+    protected final boolean checkCollision(){
         for (ICollision col : this.colidate) {
-            if (col.Collidate(point)){
+            if (col.Collidate(this.element)){
                 return true;
             }
         }

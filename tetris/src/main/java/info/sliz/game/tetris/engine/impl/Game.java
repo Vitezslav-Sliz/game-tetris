@@ -52,7 +52,7 @@ public class Game implements ElementListener{
         this.e = new GameChangedEvent(this);
         this.space = new FxGameSpace(5, 10, 10, 0.15, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE);
         this.generator = new RandomFxPlayableElementGenerator(new Point3D(0, 0, -85), 10);
-        this.strategy = new DefaultGameStrategy(this.elements);
+        this.strategy = new DefaultGameStrategy(this.elements,25);
         this.element = this.generator.generateElement();
         
         col.add(space);
@@ -106,10 +106,11 @@ public class Game implements ElementListener{
         LOGGER.debug("Game changed - reflect changes");
         if (!this.element.isPlayable()){
             LOGGER.debug("Elements not movable create");
-            for (Point3D point : this.element.getControlPoints()) {
+            for (Point3D point : this.element.getBoundaries()) {
                 FxInplaceElement el = new FxInplaceElement(point, 10);
                 col.add(el);
                 el.setColor(this.space.getColor(point));
+                this.elements.add(el);
                 
             }
             this.strategy.update();

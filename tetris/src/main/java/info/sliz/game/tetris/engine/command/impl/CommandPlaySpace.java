@@ -2,8 +2,6 @@ package info.sliz.game.tetris.engine.command.impl;
 
 import java.util.Set;
 
-import javafx.geometry.Point3D;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,12 +22,9 @@ public class CommandPlaySpace extends CommandPlay {
         
         LOGGER.debug("Execute command");
         while (true) {
-            for (Point3D p : element.getControlPoints()) {
-                Point3D mx = new Point3D(p.getX(),p.getY(),p.getZ()+moveStep);
-                if (this.checkCollision(mx)){
-                	element.setPlayable(false);
-                	return;
-                }
+            if (this.checkCollision()){
+                element.setPlayable(false);
+                return;
             }
             element.play(MOVE.FORWARD, moveStep);
         }

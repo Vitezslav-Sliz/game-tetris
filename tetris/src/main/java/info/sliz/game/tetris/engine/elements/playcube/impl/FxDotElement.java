@@ -24,15 +24,20 @@ public final class FxDotElement extends FxPlayableElement {
         this.cube.setColor(color);
     }
     @Override
-    public Set<Point3D> getControlPoints() {
-        Set<Point3D> ret = new HashSet<Point3D>(1); 
-        ret.add(new Point3D(this.getTranslateX(),this.getTranslateY(),this.getTranslateZ()));
-        return ret;
+    public Point3D getControlPoint() {
+        return new Point3D(this.getTranslateX(),this.getTranslateY(),this.getTranslateZ());
     }
     
     @Override
     public String toString() {
         return String.format("%s[%.3f|%.3f|%.3f]@%s",getClass().getSimpleName(),this.getTranslateX(),this.getTranslateY(),getTranslateZ(),Integer.toHexString(hashCode()));
+    }
+
+    @Override
+    public Set<Point3D> getBoundaries() {
+        Set<Point3D> ret = new HashSet<Point3D>();
+        ret.add(new Point3D(this.getTranslateX(),this.getTranslateY(),this.getTranslateZ()));
+        return ret;
     }
 
 }

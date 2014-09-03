@@ -2,7 +2,6 @@ package info.sliz.game.tetris.engine.command.impl;
 
 import java.util.Set;
 
-import javafx.geometry.Point3D;
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.elements.ICollision;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
@@ -17,12 +16,9 @@ public class CommandPlayAuto extends CommandPlay {
     
     @Override
     public void execute() throws MoveCommandException {
-        for (Point3D p : element.getControlPoints()) {
-            Point3D mx = new Point3D(p.getX(),p.getY(),p.getZ()+moveStep);
-            if (this.checkCollision(mx)){
-                element.setPlayable(false);
-                return;
-            }
+        if (this.checkCollision()){
+            element.setPlayable(false);
+            return;
         }
         element.play(MOVE.FORWARD, moveStep);
     }

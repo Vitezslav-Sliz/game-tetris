@@ -2,8 +2,6 @@ package info.sliz.game.tetris.engine.command.impl;
 
 import java.util.Set;
 
-import javafx.geometry.Point3D;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,11 +19,8 @@ public class CommandPlayLeft extends CommandPlay implements ICommand{
     }
     public void execute() throws MoveCommandException{
         LOGGER.debug("Execute command");
-        for (Point3D p : element.getControlPoints()) {
-            Point3D mx = new Point3D(p.getX()-moveStep,p.getY(),p.getZ());
-            if (this.checkCollision(mx)){
-                throw new MoveCommandException("Can't move: colide with another elements");
-            }
+        if (this.checkCollision()){
+            throw new MoveCommandException("Can't move: colide with another elements");
         }
         element.play(MOVE.LEFT, moveStep);
     }
