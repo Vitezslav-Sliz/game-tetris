@@ -20,6 +20,7 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
@@ -42,7 +43,7 @@ public class TetrisGameRunner extends Application implements Observer{
         root.getChildren().add(camera);
         AmbientLight ambient = new AmbientLight();
         ambient.setColor(Configuration.COLOR_LIGHT);
-        world.getChildren().addAll(ambient);
+        root.getChildren().addAll(ambient);
         world.getChildren().addAll(engine.getElements());
         engine.addObserver(this);
         
@@ -83,5 +84,11 @@ public class TetrisGameRunner extends Application implements Observer{
     public void update(Observable o, Object arg) {
         world.getChildren().removeAll(engine.getElements());
         world.getChildren().addAll(engine.getElements());
+        world.getChildren().retainAll(engine.getElements());
+        for (Node node : engine.getElements()) {
+            if (!world.getChildren().contains(node)){
+                world.getChildren().add(node);
+            }
+        }
     }
 }
