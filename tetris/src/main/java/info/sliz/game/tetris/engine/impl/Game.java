@@ -1,5 +1,6 @@
 package info.sliz.game.tetris.engine.impl;
 
+import info.sliz.game.tetris.engine.ICollidable;
 import info.sliz.game.tetris.engine.IGameStrategy;
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
@@ -9,7 +10,6 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
-import info.sliz.game.tetris.engine.elements.ICollision;
 import info.sliz.game.tetris.engine.elements.IPlaybleElementGenerator;
 import info.sliz.game.tetris.engine.elements.event.ElementListener;
 import info.sliz.game.tetris.engine.elements.event.impl.ElementEvent;
@@ -38,7 +38,7 @@ public class Game implements ElementListener{
     private final GameChangedEvent e;
     private GameListener listener;
     private final IGameStrategy strategy;
-    private final Set<ICollision> col = new HashSet<ICollision>();
+    private final Set<ICollidable> col = new HashSet<ICollidable>();
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
     
     private final FxGameSpace space;  

@@ -3,7 +3,7 @@ package info.sliz.game.tetris.engine.gamespace.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import info.sliz.game.tetris.engine.elements.ICollision;
+import info.sliz.game.tetris.engine.ICollidable;
 import info.sliz.game.tetris.engine.elements.playcube.IElement;
 
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 
-public class FxGameSpace extends Group implements ICollision {
+public class FxGameSpace extends Group implements ICollidable {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(FxGameSpace.class);
     private final double boundaryX;

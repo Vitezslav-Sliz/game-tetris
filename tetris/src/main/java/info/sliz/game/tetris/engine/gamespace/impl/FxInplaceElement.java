@@ -3,13 +3,13 @@ package info.sliz.game.tetris.engine.gamespace.impl;
 import javafx.geometry.Point3D;
 import javafx.scene.paint.Color;
 import info.sliz.game.tetris.config.Configuration;
-import info.sliz.game.tetris.engine.elements.ICollision;
+import info.sliz.game.tetris.engine.ICollidable;
 import info.sliz.game.tetris.engine.elements.basic.FxCube;
 import info.sliz.game.tetris.engine.elements.basic.impl.FxStaticCube;
 import info.sliz.game.tetris.engine.elements.playcube.FxMovableElement;
 import info.sliz.game.tetris.engine.elements.playcube.IElement;
 
-public class FxInplaceElement extends FxMovableElement implements ICollision{
+public class FxInplaceElement extends FxMovableElement implements ICollidable{
     private FxCube cube;
     private final int size;
     private Color color = Configuration.COLOR_CUBE;
