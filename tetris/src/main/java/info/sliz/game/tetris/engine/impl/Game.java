@@ -1,5 +1,6 @@
 package info.sliz.game.tetris.engine.impl;
 
+import info.sliz.game.tetris.engine.IGameStrategy;
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayAuto;
@@ -36,10 +37,11 @@ public class Game implements ElementListener{
     
     private final GameChangedEvent e;
     private GameListener listener;
-    
-    private final FxGameSpace space;
+    private final IGameStrategy strategy;
     private final Set<ICollision> col = new HashSet<ICollision>();
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
+    
+    private final FxGameSpace space;  
     private final List<FxInplaceElement> elements = new ArrayList<FxInplaceElement>();
     private FxPlayableElement element;
 
@@ -50,6 +52,7 @@ public class Game implements ElementListener{
         this.e = new GameChangedEvent(this);
         this.space = new FxGameSpace(5, 10, 10, 0.15, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE);
         this.generator = new RandomFxPlayableElementGenerator(new Point3D(0, 0, -85), 10);
+        this.strategy = new DefaultGameStrategy(this.elements);
         this.element = this.generator.generateElement();
         
         col.add(space);
@@ -107,8 +110,9 @@ public class Game implements ElementListener{
                 FxInplaceElement el = new FxInplaceElement(point, 10);
                 col.add(el);
                 el.setColor(this.space.getColor(point));
-                this.elements.add(el);
+                
             }
+            this.strategy.update();
             updateToNewElement();
         }
         LOGGER.debug("Elements in game is: " + (this.getElements().size()-1));
