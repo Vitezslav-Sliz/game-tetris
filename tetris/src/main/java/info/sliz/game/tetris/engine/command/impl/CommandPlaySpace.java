@@ -18,11 +18,10 @@ public class CommandPlaySpace extends CommandPlay {
         super(el, step, colidate);
     }
     @Override
-    public void execute() throws MoveCommandException {
-        
+    public void execute() {
         LOGGER.debug("Execute command");
         while (true) {
-            if (this.checkCollision()){
+            if (!this.canPlay(MOVE.FORWARD)){
                 element.setPlayable(false);
                 return;
             }

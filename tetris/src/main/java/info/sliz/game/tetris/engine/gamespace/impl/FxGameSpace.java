@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import info.sliz.game.tetris.engine.ICollidable;
-import info.sliz.game.tetris.engine.elements.playcube.IElement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,14 +78,6 @@ public class FxGameSpace extends Group implements ICollidable {
         }
         if ((point.getZ()) > -boundaryZ) {
             return true;
-        }
-        return false;
-    }
-    public boolean Collidate(IElement element) {
-        for (Point3D p : element.getBoundaries()) {
-            if(this.Collidate(p)){
-                return true;
-            }
         }
         return false;
     }

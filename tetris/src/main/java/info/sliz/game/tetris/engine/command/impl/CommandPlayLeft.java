@@ -17,10 +17,10 @@ public class CommandPlayLeft extends CommandPlay implements ICommand{
     public CommandPlayLeft(final FxPlayableElement el,final double step,final Set<ICollidable> colidate) {
         super(el, step, colidate);
     }
-    public void execute() throws MoveCommandException{
-        LOGGER.debug("Execute command");
-        if (this.checkCollision()){
-            throw new MoveCommandException("Can't move: colide with another elements");
+    public void execute() throws CommandPlayException{
+    	LOGGER.debug("Execute command");
+        if (!this.canPlay(MOVE.LEFT)){
+            throw new CommandPlayException("Can't play: colide with another elements, or is not playable");
         }
         element.play(MOVE.LEFT, moveStep);
     }

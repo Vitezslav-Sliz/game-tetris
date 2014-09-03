@@ -7,7 +7,6 @@ import info.sliz.game.tetris.engine.ICollidable;
 import info.sliz.game.tetris.engine.elements.basic.FxCube;
 import info.sliz.game.tetris.engine.elements.basic.impl.FxStaticCube;
 import info.sliz.game.tetris.engine.elements.playcube.FxMovableElement;
-import info.sliz.game.tetris.engine.elements.playcube.IElement;
 
 public class FxInplaceElement extends FxMovableElement implements ICollidable{
     private FxCube cube;
@@ -35,12 +34,4 @@ public class FxInplaceElement extends FxMovableElement implements ICollidable{
         return point.getX() == this.getTranslateX() && point.getY() == this.getTranslateY() && point.getZ() == this.getTranslateZ();
     }
 
-    public boolean Collidate(IElement element) {
-        for (Point3D p : element.getBoundaries()) {
-            if(this.Collidate(p)){
-                return true;
-            }
-        }
-        return false;
-    }
 }

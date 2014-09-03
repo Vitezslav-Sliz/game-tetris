@@ -16,7 +16,7 @@ public class CommandPlayAuto extends CommandPlay {
     
     @Override
     public void execute() throws MoveCommandException {
-        if (this.checkCollision()){
+        if (!this.canPlay(MOVE.FORWARD)){
             element.setPlayable(false);
             return;
         }

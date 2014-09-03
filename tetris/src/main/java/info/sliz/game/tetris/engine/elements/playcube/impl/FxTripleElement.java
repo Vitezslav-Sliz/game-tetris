@@ -29,7 +29,10 @@ public final class FxTripleElement extends FxPlayableElement {
         this.getChildren().add(this.leftCube);
         this.getChildren().add(this.rightCube);
     }
-
+	@Override
+	public Point3D getControlPoint() {
+		return new Point3D(this.getTranslateX(),this.getTranslateY(),this.getTranslateZ());
+	}
     @Override
     public Set<Point3D> getBoundaries() {
         Set<Point3D> ret = new HashSet<Point3D>(1); 

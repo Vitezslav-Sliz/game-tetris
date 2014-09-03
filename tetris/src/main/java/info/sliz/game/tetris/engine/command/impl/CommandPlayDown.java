@@ -19,10 +19,10 @@ public class CommandPlayDown extends CommandPlay implements ICommand{
         super(el, step, colidate);
     }
 
-    public void execute() throws MoveCommandException {
-        LOGGER.debug("Execute command");
-        if (this.checkCollision()){
-            throw new MoveCommandException("Can't move: colide with another elements");
+    public void execute() throws CommandPlayException {
+    	LOGGER.debug("Execute command");
+        if (!this.canPlay(MOVE.DOWN)){
+            throw new CommandPlayException("Can't play: colide with another elements, or is not playable");
         }
         element.play(MOVE.DOWN, moveStep);
     }

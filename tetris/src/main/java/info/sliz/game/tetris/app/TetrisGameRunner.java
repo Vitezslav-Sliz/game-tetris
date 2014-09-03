@@ -70,8 +70,7 @@ public class TetrisGameRunner extends Application implements Observer{
         try {
 			this.engine.getCommand(CommandStartGame.class).execute();
 		} catch (CommandException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Can't start game",e);
 		}
     }
 
