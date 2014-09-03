@@ -114,6 +114,7 @@ public class Game implements ElementListener{
                 
             }
             this.strategy.update();
+            //FIXME update collidate set 
             updateToNewElement();
         }
         LOGGER.debug("Elements in game is: " + (this.getElements().size()-1));
