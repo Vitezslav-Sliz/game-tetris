@@ -34,8 +34,8 @@ public final class FxDoubleElement extends FxPlayableElement {
     @Override
     public Set<Point3D> getBoundaries() {
         Set<Point3D> ret = new HashSet<Point3D>(2); 
-        ret.add(new Point3D(this.getTranslateX(),this.getTranslateY(),this.getTranslateZ()));
-        ret.add(this.localToParent(new Point3D(otherCube.getTranslateX(),otherCube.getTranslateY(),otherCube.getTranslateZ())));
+        ret.add(new Point3D(Math.round(this.getTranslateX()), Math.round(this.getTranslateY()), Math.round(this.getTranslateZ())));
+        ret.add(this.localToParent(new Point3D(Math.round(this.otherCube.getTranslateX()), Math.round(this.otherCube.getTranslateY()), Math.round(this.otherCube.getTranslateZ()))));
         return ret;
     }
 }

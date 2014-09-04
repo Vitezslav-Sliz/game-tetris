@@ -12,8 +12,7 @@ public abstract class CommandMove implements ICommand {
 	protected double moveStep;
 	protected final Set<ICollidable> colidate;
 
-	public CommandMove(final IMovable element, final double step,
-			final Set<ICollidable> colidate) {
+	public CommandMove(final IMovable element, final double step,final Set<ICollidable> colidate) {
 		super();
 		this.element = element;
 		this.moveStep = step;

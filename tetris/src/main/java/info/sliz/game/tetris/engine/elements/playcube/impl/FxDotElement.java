@@ -25,5 +25,4 @@ public final class FxDotElement extends FxPlayableElement {
     public String toString() {
         return String.format("%s[%.3f|%.3f|%.3f]@%s",getClass().getSimpleName(),this.getTranslateX(),this.getTranslateY(),getTranslateZ(),Integer.toHexString(hashCode()));
     }
-
 }

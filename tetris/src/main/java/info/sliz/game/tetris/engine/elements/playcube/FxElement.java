@@ -11,12 +11,14 @@ import javafx.scene.Group;
 public abstract class FxElement extends Group {
 
     protected ElementListener listener;
-
+    protected final ElementEvent event;
+    
     public FxElement(Point3D initial) {
         
         this.setTranslateX(initial.getX());
         this.setTranslateY(initial.getY());
         this.setTranslateZ(initial.getZ());
+        this.event = new ElementEvent(this); 
     }
 
     public final void setEventListener(final ElementListener e){
@@ -30,12 +32,12 @@ public abstract class FxElement extends Group {
     }
     
     public Point3D getControlPoint(){
-        return new Point3D(this.getTranslateX(), this.getTranslateY(), this.getTranslateZ());
+        return new Point3D(Math.round(this.getTranslateX()), Math.round(this.getTranslateY()), Math.round(this.getTranslateZ()));
     }
     
     public Set<Point3D> getBoundaries() {
         Set<Point3D> ret = new HashSet<Point3D>(1); 
-        ret.add(new Point3D(this.getTranslateX(),this.getTranslateY(),this.getTranslateZ()));
+        ret.add(new Point3D(Math.round(this.getTranslateX()), Math.round(this.getTranslateY()), Math.round(this.getTranslateZ())));
         return ret;
     }
 }

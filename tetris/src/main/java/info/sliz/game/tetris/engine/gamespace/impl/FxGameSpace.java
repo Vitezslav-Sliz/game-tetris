@@ -62,7 +62,7 @@ public class FxGameSpace extends Group implements ICollidable {
     }
 
     public boolean Collidate(Point3D point) {
-        LOGGER.debug("Check collision with: " + point);
+        LOGGER.debug("Check collision for: " + point);
         if ((point.getX()) <= -boundaryX || (point.getX()) >= boundaryX) {
             return true;
         }

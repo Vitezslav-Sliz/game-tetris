@@ -15,7 +15,7 @@ public class CommandPlaySpace extends CommandPlay {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandPlayRight.class);
     
     public CommandPlaySpace(final FxPlayableElement el,final double step,final Set<ICollidable> colidate) {
-        super(el, step, colidate);
+        super(el, step,0, colidate);
     }
     @Override
     public void execute() {

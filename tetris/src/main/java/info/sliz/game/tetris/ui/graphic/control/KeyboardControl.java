@@ -5,6 +5,9 @@ import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
+import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateX;
+import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateY;
+import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateZ;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 
@@ -40,6 +43,15 @@ public class KeyboardControl implements EventHandler<KeyEvent> {
                 break;
             case SPACE:
                 this.eng.getCommand(CommandPlaySpace.class).execute();
+                break;
+            case A:
+                this.eng.getCommand(CommandPlayRotateX.class).execute();
+                break;
+            case S:
+                this.eng.getCommand(CommandPlayRotateY.class).execute();
+                break;
+            case D:
+                this.eng.getCommand(CommandPlayRotateZ.class).execute();
                 break;
             default:
                 break;

@@ -36,9 +36,7 @@ public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>
     public void execute() throws CommandException {
         while (true) {
             this.d = CommandUpdateGameElements.getZwithFullLevel(this.elements.getMovable(),levelcount);
-            System.out.println("SYSTEM FULL LEVEL "+d);
             if (this.d.isNaN()){
-                System.out.println("BREAK");
                 break;
             }
             List<Object> toRemove = new ArrayList<Object>();

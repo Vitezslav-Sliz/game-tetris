@@ -9,6 +9,9 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayAuto;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
+import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateX;
+import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateY;
+import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateZ;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 import info.sliz.game.tetris.engine.command.impl.CommandUpdateGameElements;
@@ -75,6 +78,9 @@ public class Game implements ElementListener{
         commands.add(new CommandPlayUp(this.element,10,col));
         commands.add(new CommandPlayDown(this.element,10,col));
         commands.add(new CommandPlaySpace(this.element,10,col));
+        commands.add(new CommandPlayRotateX(this.element,90,col));
+        commands.add(new CommandPlayRotateY(this.element,90,col));
+        commands.add(new CommandPlayRotateZ(this.element,90,col));
         CommandPlay m = new CommandPlayAuto(this.element,10,col);
         commands.add(m);
         

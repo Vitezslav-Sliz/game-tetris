@@ -15,7 +15,7 @@ public class CommandPlayLeft extends CommandPlay implements ICommand{
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandPlayLeft.class);
     
     public CommandPlayLeft(final FxPlayableElement el,final double step,final Set<ICollidable> colidate) {
-        super(el, step, colidate);
+        super(el, step,0, colidate);
     }
     public void execute() throws CommandPlayException{
     	LOGGER.debug("Execute command");
