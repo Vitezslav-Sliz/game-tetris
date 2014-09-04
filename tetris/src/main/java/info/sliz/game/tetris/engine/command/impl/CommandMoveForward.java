@@ -10,23 +10,21 @@ import info.sliz.game.tetris.engine.command.CommandMove;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable.MOVE;
 
-public class CommandMoveForwardMax extends CommandMove {
+public class CommandMoveForward extends CommandMove {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CommandMoveForwardMax.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandMoveForward.class);
     
-    public CommandMoveForwardMax(IMovable element, double step, Set<ICollidable> colidate) {
+    public CommandMoveForward(IMovable element, double step, Set<ICollidable> colidate) {
         super(element, step, colidate);
     }
 
     @Override
     public void execute() throws CommandException {
         LOGGER.debug("Execute command");
-        while (true) {
-            if (!this.canMove(MOVE.FORWARD)){
-                return;
-            }
-            element.move(MOVE.FORWARD, moveStep);
+        if (!this.canMove(MOVE.FORWARD)){
+            return;
         }
+        element.move(MOVE.FORWARD, moveStep);
     }
 
 }

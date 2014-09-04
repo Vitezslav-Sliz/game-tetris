@@ -17,23 +17,49 @@ import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.elements.IElements;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable;
 
-public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>{
+public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>, Predicate<IMovable>{
 
     private final IElements elements;
     private final int levelcount;
     private final int step;
     protected final ICollidable colidate;
+    private Double d;
     
     public CommandUpdateGameElements(IElements elements, final ICollidable colidate, final int levelcount, final int moveStep) {
         this.elements = elements;
         this.levelcount = levelcount;
         this.step = moveStep;
         this.colidate = colidate;
+        d = Double.NaN;
     }
     
     public void execute() throws CommandException {
+        while (true) {
+            this.d = CommandUpdateGameElements.getZwithFullLevel(this.elements.getMovable(),levelcount);
+            System.out.println("SYSTEM FULL LEVEL "+d);
+            if (this.d.isNaN()){
+                System.out.println("BREAK");
+                break;
+            }
+            List<Object> toRemove = new ArrayList<Object>();
+            List<Object> part = this.elements.getMovable().stream().filter(this).collect(Collectors.toList());
+            toRemove.addAll(part);
+            this.elements.removeAll(toRemove);
+            List<IMovable> sorted = new ArrayList<IMovable>(this.elements.getMovable());
+            Collections.sort(sorted, this);
+            Collections.reverse(sorted);
+            Set<ICollidable> col = new HashSet<ICollidable>();
+            col.addAll(this.elements.getColidable());
+            col.add(this.colidate);
+            for (IMovable iMovable : sorted) {
+                new CommandMoveForward(iMovable,step,col).execute();;
+            }
+        }
+    }
+
+    private final static Double getZwithFullLevel(List<IMovable> elements, final int levelcount){
         Map<Double, Integer> elByZ = new HashMap<Double, Integer>();
-        for (IMovable e : this.elements.getMovable()) {
+        for (IMovable e : elements) {
             Integer v = elByZ.get(e.getControlPoint().getZ()); 
             if (v == null){
                 elByZ.put(e.getControlPoint().getZ(), new Integer(1));
@@ -41,33 +67,20 @@ public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>
                 elByZ.put(e.getControlPoint().getZ(), new Integer(++v));
             }
         }
-        List<Object> toRemove = new ArrayList<Object>();
         for (final Entry<Double,Integer> entry : elByZ.entrySet()) {
             if (entry.getValue() == levelcount){
-                Predicate<IMovable> p = new Predicate<IMovable>(){
-                    public boolean test(IMovable t) {
-                        return  t.getControlPoint().getZ() == entry.getKey();
-                    }
-                };
-                List<Object> part = this.elements.getMovable().stream().filter(p).collect(Collectors.toList());
-                toRemove.addAll(part);
+               return entry.getKey();
             }
         }
-        this.elements.removeAll(toRemove);
-        List<IMovable> sorted = new ArrayList<IMovable>(this.elements.getMovable());
-        Collections.sort(sorted, this);
-        Collections.reverse(sorted);
-        Set<ICollidable> col = new HashSet<ICollidable>();
-        col.addAll(this.elements.getColidable());
-        col.add(this.colidate);
+        return Double.NaN;
         
-        for (IMovable iMovable : sorted) {
-            new CommandMoveForwardMax(iMovable,step,col).execute();;
-        }
     }
-
     public int compare(IMovable o1, IMovable o2) {
         return Double.compare(o1.getControlPoint().getZ(), o2.getControlPoint().getZ());
+    }
+
+    public boolean test(IMovable t) {
+        return  t.getControlPoint().getZ() == this.d;
     }
 
 }
