@@ -13,6 +13,12 @@ public class FxInplaceElement extends FxMovableElement implements ICollidable{
     private final int size;
     private Color color = Configuration.COLOR_CUBE;
 
+    public FxInplaceElement(final Point3D initial,final int size, final Color color) {
+        this(initial,size);
+        if (color != null){
+            this.cube.setColor(color);
+        }
+    }
     public FxInplaceElement(final Point3D initial,final int size) {
         super(initial);
         this.size = size;

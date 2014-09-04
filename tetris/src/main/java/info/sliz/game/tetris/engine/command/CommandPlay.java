@@ -13,10 +13,7 @@ public abstract class CommandPlay extends CommandMove {
         super(element, step, colidate);
         this.element = element;
     }
-
-    public void setPlayableElement(IPlayable element) {
-        this.element = element;
-    }
+    
     protected final boolean canPlay(final MOVE direction){
     	if (this.element.isPlayable()){
     		for (ICollidable col : this.colidate) {

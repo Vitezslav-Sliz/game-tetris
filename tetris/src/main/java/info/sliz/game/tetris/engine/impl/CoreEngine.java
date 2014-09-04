@@ -20,7 +20,6 @@ public class CoreEngine extends Observable implements IEngine, GameListener{
     public CoreEngine() {
         this.game = new Game();
         this.commands.putAll(this.game.getCommands());
-
         this.commands.put(new CommandStartGame(game));
         this.commands.put(new CommandStopGame(game));
         
@@ -31,6 +30,7 @@ public class CoreEngine extends Observable implements IEngine, GameListener{
      * @see info.sliz.game.tetris.engine.impl.IEngine#getCommand(java.lang.Class)
      */
     public ICommand getCommand(Class<? extends ICommand> command){
+        
         return this.commands.get(command);
     }
     /* (non-Javadoc)
@@ -40,6 +40,7 @@ public class CoreEngine extends Observable implements IEngine, GameListener{
         return this.game.getElements();
     }
     public void gameChanged(GameChangedEvent e) {
+        this.commands.putAll(this.game.getCommands());
         setChanged();
         notifyObservers();        
     }

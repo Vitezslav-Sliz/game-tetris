@@ -1,24 +1,28 @@
 package info.sliz.game.tetris.engine.impl;
 
 import info.sliz.game.tetris.engine.ICollidable;
-import info.sliz.game.tetris.engine.IGameStrategy;
+import info.sliz.game.tetris.engine.IStatisticsStrategy;
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
+import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayAuto;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
+import info.sliz.game.tetris.engine.command.impl.CommandUpdateGameElements;
+import info.sliz.game.tetris.engine.elements.IElements;
 import info.sliz.game.tetris.engine.elements.IPlaybleElementGenerator;
 import info.sliz.game.tetris.engine.elements.event.ElementListener;
 import info.sliz.game.tetris.engine.elements.event.impl.ElementEvent;
+import info.sliz.game.tetris.engine.elements.impl.Elements;
+import info.sliz.game.tetris.engine.elements.impl.LevelColorManager;
 import info.sliz.game.tetris.engine.elements.impl.RandomFxPlayableElementGenerator;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.event.GameListener;
 import info.sliz.game.tetris.engine.event.impl.GameChangedEvent;
 import info.sliz.game.tetris.engine.gamespace.impl.FxGameSpace;
-import info.sliz.game.tetris.engine.gamespace.impl.FxInplaceElement;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,25 +41,34 @@ public class Game implements ElementListener{
     
     private final GameChangedEvent e;
     private GameListener listener;
-    private final IGameStrategy strategy;
-    private final Set<ICollidable> col = new HashSet<ICollidable>();
+    private final IStatisticsStrategy statistics;
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
+    private final ICommand calcElemnts;
     
-    private final FxGameSpace space;  
-    private final List<FxInplaceElement> elements = new ArrayList<FxInplaceElement>();
+    private final FxGameSpace space;
+    private final IElements elements;
     private FxPlayableElement element;
-
     private final IPlaybleElementGenerator generator;
     private GameRunner runner;
     
     public Game() {
         this.e = new GameChangedEvent(this);
-        this.space = new FxGameSpace(5, 10, 10, 0.15, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE);
+        this.space = new FxGameSpace(5, 10, 10, 0.15);
+        this.runner = new GameRunner(1000);
+        this.statistics = new DefaultGameStatistics();
         this.generator = new RandomFxPlayableElementGenerator(new Point3D(0, 0, -85), 10);
-        this.strategy = new DefaultGameStrategy(this.elements,25);
-        this.element = this.generator.generateElement();
+        this.elements = new Elements(10, new LevelColorManager(10,10, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE)); 
+        this.calcElemnts = new CommandUpdateGameElements(elements,this.space, 25,10);
         
+        updateToNewElement();
+    }
+    private final void updateToNewElement(){
+        this.element = this.generator.generateElement();
+        this.commands.clear();
+        
+        Set<ICollidable> col = new HashSet<ICollidable>();
         col.add(space);
+        col.addAll(this.elements.getColidable());
         
         commands.add(new CommandPlayLeft(this.element,10,col));
         commands.add(new CommandPlayRight(this.element,10,col));
@@ -66,8 +79,9 @@ public class Game implements ElementListener{
         commands.add(m);
         
         this.element.setEventListener(this);
-
-        runner = new GameRunner(1000,m);
+        this.runner.setICommand(m);
+        
+        this.element.setEventListener(this);
     }
 
     public Set<ICommand> getCommands() {
@@ -77,7 +91,7 @@ public class Game implements ElementListener{
     public List<Node> getElements() {
         List<Node> ret = new ArrayList<Node>();
         ret.add(space);
-        ret.addAll(elements);
+        ret.addAll(this.elements.getNodes());
         ret.add(element);
         return ret;
     }
@@ -85,13 +99,7 @@ public class Game implements ElementListener{
     public void setGameListener(final GameListener listener){
         this.listener = listener;
     }
-    private void updateToNewElement(){
-       this.element = this.generator.generateElement();
-       for (CommandPlay commandMove : commands) {
-           commandMove.setPlayableElement(this.element);
-       }
-       this.element.setEventListener(this);
-    }
+    
     public void stopGame() {
         this.runner.Stop();
     }
@@ -106,15 +114,12 @@ public class Game implements ElementListener{
         LOGGER.debug("Game changed - reflect changes");
         if (!this.element.isPlayable()){
             LOGGER.debug("Elements not movable create");
-            for (Point3D point : this.element.getBoundaries()) {
-                FxInplaceElement el = new FxInplaceElement(point, 10);
-                col.add(el);
-                el.setColor(this.space.getColor(point));
-                this.elements.add(el);
-                
+            this.elements.createAddInGameElement(this.element);
+            try {
+                this.calcElemnts.execute();
+            } catch (CommandException e1) {
+                LOGGER.error("Error with calculate results and manipulate",e);
             }
-            this.strategy.update();
-            //FIXME update collidate set 
             updateToNewElement();
         }
         LOGGER.debug("Elements in game is: " + (this.getElements().size()-1));

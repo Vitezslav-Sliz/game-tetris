@@ -1,8 +1,6 @@
 package info.sliz.game.tetris.engine;
 
-public interface IGameStrategy {
+public interface IStatisticsStrategy {
 
-    public boolean update();
-    
     public int getScore();
 }

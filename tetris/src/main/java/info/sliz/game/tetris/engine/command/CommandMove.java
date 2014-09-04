@@ -20,10 +20,6 @@ public abstract class CommandMove implements ICommand {
 		this.colidate = colidate;
 	}
 
-	public void setMovableElement(IMovable element) {
-		this.element = element;
-	}
-
 	protected final boolean canMove(final MOVE direction) {
 		for (ICollidable col : this.colidate) {
 			if (!this.element.canMove(direction, moveStep, col)) {

@@ -1,8 +1,5 @@
 package info.sliz.game.tetris.engine.gamespace.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import info.sliz.game.tetris.engine.ICollidable;
 
 import org.slf4j.Logger;
@@ -10,19 +7,15 @@ import org.slf4j.LoggerFactory;
 
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 
 public class FxGameSpace extends Group implements ICollidable {
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(FxGameSpace.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FxGameSpace.class);
     private final double boundaryX;
     private final double boundaryY;
     private final double boundaryZ;
 
-    private final LevelColorManager colors;
-    public FxGameSpace(final int lenghtAndHeight, final int depth, final int sizeSquare, final double lineWidthSquare, Color... colors) {
-        this.colors = new LevelColorManager(-sizeSquare/2,sizeSquare,colors);
+    public FxGameSpace(final int lenghtAndHeight, final int depth, final int sizeSquare, final double lineWidthSquare) {
         LOGGER.debug(String.format(
                 "Start Generate Game Space: %d X %d X %d size: %d line: %f",
                 lenghtAndHeight, lenghtAndHeight, depth, sizeSquare,
@@ -80,27 +73,5 @@ public class FxGameSpace extends Group implements ICollidable {
             return true;
         }
         return false;
-    }
-    
-    public Color getColor(Point3D point) {
-        return this.colors.getColor(point);
-    }
-
-    private class LevelColorManager {
-
-        private Map<Double,Color> colors = new HashMap<Double, Color>();
-
-        public LevelColorManager(final double point,final double step,Color... colors) {
-            double val = point;
-            for (Color color : colors) {
-                this.colors.put(val, color);
-                val = val - step;
-            }
-            LOGGER.debug("Defined colors in levels:"+this.colors);
-        }
-
-        public Color getColor(Point3D point) {
-            return this.colors.get(point.getZ());
-        }
     }
 }

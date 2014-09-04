@@ -18,11 +18,13 @@ final class GameRunner extends Thread{
     
     private final int time;
     private boolean run;
-    private final ICommand move;
-    public GameRunner(final int time, final ICommand move) {
+    private ICommand command;
+    public GameRunner(final int time) {
         this.time = time;
         this.run = true;
-        this.move = move;
+    }
+    public void setICommand(final ICommand command){
+        this.command = command;
     }
     public void Stop(){
         this.run = false;
@@ -36,7 +38,7 @@ final class GameRunner extends Thread{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }               
-            QUEUE.execute(new RunnerTask(move));
+            QUEUE.execute(new RunnerTask(this.command));
         }
         QUEUE.shutdown();
         LOGGER.debug("Stopping game... ");
@@ -54,10 +56,14 @@ final class GameRunner extends Thread{
             LOGGER.debug("Running Move Task");
             Platform.runLater(new Runnable() {
                 public void run() {
-                    try {
-                        move.execute();
-                    } catch (CommandException e) {
-                        LOGGER.debug("Problem with move",e);
+                    if (move != null){
+                        try {
+                            move.execute();
+                        } catch (CommandException e) {
+                            LOGGER.debug("Problem with move",e);
+                        }
+                    }else{
+                        LOGGER.error("No Command assigned");
                     }
                 }
             });
