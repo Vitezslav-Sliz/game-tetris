@@ -1,6 +1,5 @@
 package info.sliz.game.tetris.engine.elements.playcube;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import info.sliz.game.tetris.engine.elements.event.ElementListener;
@@ -31,13 +30,8 @@ public abstract class FxElement extends Group {
         }
     }
     
-    public Point3D getControlPoint(){
-        return new Point3D(this.getTranslateX(), this.getTranslateY(), this.getTranslateZ());
-    }
+    public abstract Point3D getElementCoordinate();
     
-    public Set<Point3D> getBoundaries() {
-        Set<Point3D> ret = new HashSet<Point3D>(1); 
-        ret.add(new Point3D(this.getTranslateX(), this.getTranslateY(), this.getTranslateZ()));
-        return ret;
-    }
+    public abstract Set<Point3D> getBoundaries();
+    
 }

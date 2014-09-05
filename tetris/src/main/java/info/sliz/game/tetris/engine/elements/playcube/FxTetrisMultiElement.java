@@ -17,7 +17,7 @@ public abstract class FxTetrisMultiElement extends FxPlayableElement{
         super(initial);
     }
     @Override
-    public Point3D getControlPoint(){
+    public Point3D getElementCoordinate(){
         return new Point3D(Math.round(this.getTranslateX()), Math.round(this.getTranslateY()), Math.round(this.getTranslateZ()));
     }
     
@@ -30,4 +30,13 @@ public abstract class FxTetrisMultiElement extends FxPlayableElement{
         }
         return ret;
     }
+    
+    public Set<Point3D> getPoints() {
+        Set<Point3D> ret = new HashSet<Point3D>(1+cubes.size());
+        for (FxCube cube: cubes) {
+            Point3D p = new Point3D(Math.round(cube.getTranslateX()), Math.round(cube.getTranslateY()), Math.round(cube.getTranslateZ()));
+            ret.add(new Point3D(Math.round(p.getX()),Math.round(p.getY()),Math.round(p.getZ())));
+        }
+        return ret;
+    }  
 }

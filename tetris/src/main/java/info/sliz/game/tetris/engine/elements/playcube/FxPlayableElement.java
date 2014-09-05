@@ -7,11 +7,14 @@ import javafx.scene.transform.Rotate;
 public abstract class FxPlayableElement extends FxElement implements IPlayable {
 
 	protected boolean playable;
-	
+	private Rotate x = new Rotate(0,Rotate.X_AXIS);
+	private Rotate y = new Rotate(0,Rotate.Y_AXIS);
+	private Rotate z = new Rotate(0,Rotate.Z_AXIS);
 	
 	public FxPlayableElement(final Point3D initial) {
 		super(initial);
 		this.playable = true;
+		this.getTransforms().addAll(x,y,z);
 	}
 	
 	public boolean isPlayable() {
@@ -57,27 +60,47 @@ public abstract class FxPlayableElement extends FxElement implements IPlayable {
 	}
 
 	public boolean canRotate(ROTATE axis, double angle, ICollidable element) {
+	    //FIXME can rotate - problems with rotation Z axis
+	    System.out.println("ORIGINAL POSITION");
+	    System.out.println(this.getBoundaries());
+	    System.out.println("---------------------");
+	    Point3D ctrl = this.getElementCoordinate();
+	    System.out.println("Control point:"+ctrl+"\n");
 		for (Point3D point : this.getBoundaries()) {
-    		if (element.Collidate(IRotateUtils.rotatePoint(this.getControlPoint(),point, axis, angle))){
+		    
+		    Point3D toRotate = new Point3D(point.getX()-ctrl.getX(), point.getY()-ctrl.getY(), point.getZ()-ctrl.getZ());
+		    System.out.println("Rotate point "+ point);
+		    System.out.println("Rotate to locale point "+ toRotate+"\n");
+		    
+		    Point3D s = IRotateUtils.rotatePoint(new Point3D(0,0,0),toRotate, axis, angle);
+		    Point3D check = new Point3D(s.getX()+ctrl.getX(), s.getY()+ctrl.getY(), s.getZ()+ctrl.getZ());
+		    System.out.println("Rotated point"+check);
+    		if (element.Collidate(check)){
     			return false;
     		}
 		}
+		System.out.println("---------------------");
     	return true;
 	}
-	public void rotate(ROTATE axis, double angle) {
+	
+
+    public void rotate(ROTATE axis, double angle) {
 		switch (axis) {
 		case X:
-			this.getTransforms().add(new Rotate(angle, 0,0,0, Rotate.X_AXIS));
+		    x.setAngle(x.getAngle()+angle);
 			break;
 		case Y:
-			this.getTransforms().add(new Rotate(angle, 0,0,0, Rotate.Y_AXIS));
+		    y.setAngle(y.getAngle()+angle);
 			break;
 		case Z:
-			this.getTransforms().add(new Rotate(angle, 0,0,0, Rotate.Z_AXIS));
+		    z.setAngle(z.getAngle()+angle);
 			break;
 		default:
 			break;
 		}
+		System.out.println("After systematic rotate");
+		System.out.println(this.getBoundaries());
+		System.out.println("----------------------------");
 	}
 	public boolean canMove(MOVE direction, double step, ICollidable element) {
 		for (Point3D point : this.getBoundaries()) {

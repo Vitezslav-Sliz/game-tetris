@@ -58,11 +58,11 @@ public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>
     private final static Double getZwithFullLevel(List<IMovable> elements, final int levelcount){
         Map<Double, Integer> elByZ = new HashMap<Double, Integer>();
         for (IMovable e : elements) {
-            Integer v = elByZ.get(e.getControlPoint().getZ()); 
+            Integer v = elByZ.get(e.getElementCoordinate().getZ()); 
             if (v == null){
-                elByZ.put(e.getControlPoint().getZ(), new Integer(1));
+                elByZ.put(e.getElementCoordinate().getZ(), new Integer(1));
             }else{
-                elByZ.put(e.getControlPoint().getZ(), new Integer(++v));
+                elByZ.put(e.getElementCoordinate().getZ(), new Integer(++v));
             }
         }
         for (final Entry<Double,Integer> entry : elByZ.entrySet()) {
@@ -74,11 +74,11 @@ public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>
         
     }
     public int compare(IMovable o1, IMovable o2) {
-        return Double.compare(o1.getControlPoint().getZ(), o2.getControlPoint().getZ());
+        return Double.compare(o1.getElementCoordinate().getZ(), o2.getElementCoordinate().getZ());
     }
 
     public boolean test(IMovable t) {
-        return  t.getControlPoint().getZ() == this.d;
+        return  t.getElementCoordinate().getZ() == this.d;
     }
 
 }

@@ -1,5 +1,7 @@
 package info.sliz.game.tetris.engine.elements.playcube;
 
+import java.util.Set;
+
 import javafx.geometry.Point3D;
 import javafx.scene.transform.Rotate;
 import info.sliz.game.tetris.engine.ICollidable;
@@ -15,6 +17,8 @@ public interface IRotable extends IElement {
 	public boolean canRotate(final ROTATE axis, final double angle,
 			ICollidable element);
 
+	public Set<Point3D> getPoints();
+	
 	static class IRotateUtils {
 		public final static Point3D rotatePoint(Point3D control, Point3D point,ROTATE axis, double angle) {
 			switch (axis) {

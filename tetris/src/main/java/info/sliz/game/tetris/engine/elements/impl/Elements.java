@@ -52,6 +52,6 @@ public final class Elements implements IElements, ElementListener {
     }
     public void elementChanged(ElementEvent e) {
         FxInplaceElement el = (FxInplaceElement)e.getSource();
-        el.setColor(this.cm.getColor(el.getControlPoint()));
+        el.setColor(this.cm.getColor(el.getElementCoordinate()));
     }
 }

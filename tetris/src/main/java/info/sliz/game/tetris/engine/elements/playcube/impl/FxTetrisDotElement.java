@@ -23,13 +23,17 @@ public final class FxTetrisDotElement extends FxPlayableElement {
     public String toString() {
         return String.format("%s[%.3f|%.3f|%.3f]@%s",getClass().getSimpleName(),this.getTranslateX(),this.getTranslateY(),getTranslateZ(),Integer.toHexString(hashCode()));
     }
-    public Point3D getControlPoint(){
+    public Point3D getElementCoordinate(){
         return new Point3D(Math.round(this.getTranslateX()), Math.round(this.getTranslateY()), Math.round(this.getTranslateZ()));
     }
     
     public Set<Point3D> getBoundaries() {
         Set<Point3D> ret = new HashSet<Point3D>(1); 
-        ret.add(new Point3D(Math.round(this.getTranslateX()), Math.round(this.getTranslateY()), Math.round(this.getTranslateZ())));
+        ret.add(this.getElementCoordinate());
         return ret;
+    }
+
+    public Set<Point3D> getPoints() {
+        return getBoundaries();
     }
 }
