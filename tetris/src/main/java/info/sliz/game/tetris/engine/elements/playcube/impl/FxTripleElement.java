@@ -37,8 +37,10 @@ public final class FxTripleElement extends FxPlayableElement {
     public Set<Point3D> getBoundaries() {
         Set<Point3D> ret = new HashSet<Point3D>(1); 
         ret.add(new Point3D(Math.round(this.getTranslateX()), Math.round(this.getTranslateY()), Math.round(this.getTranslateZ())));
-        ret.add(this.localToParent(new Point3D(Math.round(this.leftCube.getTranslateX()), Math.round(this.leftCube.getTranslateY()), Math.round(this.leftCube.getTranslateZ()))));
-        ret.add(this.localToParent(new Point3D(Math.round(this.rightCube.getTranslateX()), Math.round(this.rightCube.getTranslateY()), Math.round(this.rightCube.getTranslateZ()))));
+        Point3D p = this.localToParent(new Point3D(this.leftCube.getTranslateX(), this.leftCube.getTranslateY(), this.leftCube.getTranslateZ()));
+        ret.add(new Point3D(Math.round(p.getX()),Math.round(p.getY()),Math.round(p.getZ())));
+        p = this.localToParent(new Point3D(this.rightCube.getTranslateX(), this.rightCube.getTranslateY(), this.rightCube.getTranslateZ()));
+        ret.add(new Point3D(Math.round(p.getX()),Math.round(p.getY()),Math.round(p.getZ())));
         return ret;
     }
 }
