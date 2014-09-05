@@ -11,14 +11,14 @@ import info.sliz.game.tetris.engine.elements.playcube.impl.FxDoubleElement;
 import info.sliz.game.tetris.engine.elements.playcube.impl.FxTripleElement;
 import javafx.geometry.Point3D;
 
-public class RandomFxPlayableElementGenerator implements IPlaybleElementGenerator {
+public class AllElementGeneratorStrategy implements IPlaybleElementGenerator {
 	
 	private final Random random;
 	private final Point3D origin;
 	private final int size;
 	private final Map<Integer,Class<? extends FxPlayableElement>> elements = new HashMap<Integer,Class<? extends FxPlayableElement>>();
 	
-	public RandomFxPlayableElementGenerator(Point3D origin, int size){
+	public AllElementGeneratorStrategy(Point3D origin, int size){
 		super();
 		this.origin = origin;
 		this.size = size;

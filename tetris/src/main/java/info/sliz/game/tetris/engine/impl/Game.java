@@ -21,7 +21,7 @@ import info.sliz.game.tetris.engine.elements.event.ElementListener;
 import info.sliz.game.tetris.engine.elements.event.impl.ElementEvent;
 import info.sliz.game.tetris.engine.elements.impl.Elements;
 import info.sliz.game.tetris.engine.elements.impl.LevelColorManager;
-import info.sliz.game.tetris.engine.elements.impl.RandomFxPlayableElementGenerator;
+import info.sliz.game.tetris.engine.elements.impl.AllElementGeneratorStrategy;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.event.GameListener;
 import info.sliz.game.tetris.engine.event.impl.GameChangedEvent;
@@ -59,7 +59,7 @@ public class Game implements ElementListener{
         this.space = new FxGameSpace(5, 10, 10, 0.15);
         this.runner = new GameRunner(1000);
         this.statistics = new DefaultGameStatistics();
-        this.generator = new RandomFxPlayableElementGenerator(new Point3D(0, 0, -105), 10);
+        this.generator = new AllElementGeneratorStrategy(new Point3D(0, 0, -105), 10);
         this.elements = new Elements(10, new LevelColorManager(10,10, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE)); 
         this.calcElemnts = new CommandUpdateGameElements(elements,this.space, 25,10);
         
