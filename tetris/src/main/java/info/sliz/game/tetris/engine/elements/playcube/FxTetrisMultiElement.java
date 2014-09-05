@@ -22,7 +22,7 @@ public abstract class FxTetrisMultiElement extends FxPlayableElement{
     }
     
     public Set<Point3D> getBoundaries() {
-        Set<Point3D> ret = new HashSet<Point3D>(1); 
+        Set<Point3D> ret = new HashSet<Point3D>(1+cubes.size()); 
         ret.add(new Point3D(Math.round(this.getTranslateX()), Math.round(this.getTranslateY()), Math.round(this.getTranslateZ())));
         for (FxCube cube: cubes) {
             Point3D p = this.localToParent(new Point3D(Math.round(cube.getTranslateX()), Math.round(cube.getTranslateY()), Math.round(cube.getTranslateZ())));

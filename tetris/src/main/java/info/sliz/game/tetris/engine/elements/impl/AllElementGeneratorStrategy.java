@@ -8,7 +8,11 @@ import info.sliz.game.tetris.engine.elements.IPlaybleElementGenerator;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisDotElement;
 import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisDoubleElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisLElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisbigLElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisTElement;
 import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisTripleElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisZElement;
 import javafx.geometry.Point3D;
 
 public class AllElementGeneratorStrategy implements IPlaybleElementGenerator {
@@ -27,6 +31,10 @@ public class AllElementGeneratorStrategy implements IPlaybleElementGenerator {
 		this.elements.put(this.elements.size(),FxTetrisDotElement.class);
 		this.elements.put(this.elements.size(),FxTetrisDoubleElement.class);
 		this.elements.put(this.elements.size(),FxTetrisTripleElement.class);
+		this.elements.put(this.elements.size(),FxTetrisTElement.class);
+		this.elements.put(this.elements.size(),FxTetrisZElement.class);
+		this.elements.put(this.elements.size(),FxTetrisbigLElement.class);
+		this.elements.put(this.elements.size(),FxTetrisLElement.class);
 		
 	}
 
