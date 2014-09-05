@@ -6,9 +6,9 @@ import java.util.Random;
 
 import info.sliz.game.tetris.engine.elements.IPlaybleElementGenerator;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
-import info.sliz.game.tetris.engine.elements.playcube.impl.FxDotElement;
-import info.sliz.game.tetris.engine.elements.playcube.impl.FxDoubleElement;
-import info.sliz.game.tetris.engine.elements.playcube.impl.FxTripleElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisDotElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisDoubleElement;
+import info.sliz.game.tetris.engine.elements.playcube.impl.FxTetrisTripleElement;
 import javafx.geometry.Point3D;
 
 public class AllElementGeneratorStrategy implements IPlaybleElementGenerator {
@@ -24,9 +24,9 @@ public class AllElementGeneratorStrategy implements IPlaybleElementGenerator {
 		this.size = size;
 		this.random = new Random(System.currentTimeMillis());
 		
-		this.elements.put(this.elements.size(),FxDotElement.class);
-		this.elements.put(this.elements.size(),FxDoubleElement.class);
-		this.elements.put(this.elements.size(),FxTripleElement.class);
+		this.elements.put(this.elements.size(),FxTetrisDotElement.class);
+		this.elements.put(this.elements.size(),FxTetrisDoubleElement.class);
+		this.elements.put(this.elements.size(),FxTetrisTripleElement.class);
 		
 	}
 

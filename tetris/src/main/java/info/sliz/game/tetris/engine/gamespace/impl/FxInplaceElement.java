@@ -52,5 +52,7 @@ public class FxInplaceElement extends FxElement implements ICollidable,IMovable{
 	public boolean canMove(MOVE direction, double step, ICollidable element) {
 		return !element.Collidate(IMoveUtils.movePoint(this.getControlPoint(), direction, step));
 	}
-
+	public Point3D getControlPoint(){
+        return new Point3D(Math.round(this.getTranslateX()), Math.round(this.getTranslateY()), Math.round(this.getTranslateZ()));
+    }
 }
