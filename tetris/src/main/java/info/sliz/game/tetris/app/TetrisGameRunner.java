@@ -67,11 +67,11 @@ public class TetrisGameRunner extends Application implements Observer{
                 new ExitCommand(engine).execute();
             }
         });
-//        try {
-//			this.engine.getCommand(CommandStartGame.class).execute();
-//		} catch (CommandException e) {
-//			LOGGER.error("Can't start game",e);
-//		}
+        try {
+			this.engine.getCommand(CommandStartGame.class).execute();
+		} catch (CommandException e) {
+			LOGGER.error("Can't start game",e);
+		}
     }
 
     public static void main(String[] args) {

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import info.sliz.game.tetris.engine.ICollidable;
 import javafx.geometry.Point3D;
+import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
 
 public abstract class FxPlayableElement extends FxElement implements IPlayable {
@@ -62,29 +63,37 @@ public abstract class FxPlayableElement extends FxElement implements IPlayable {
 	}
 
 	public boolean canRotate(ROTATE axis, double angle, Set<ICollidable> elements) {
-	    //FIXME can rotate - problems with rotation Z axis
-	    System.out.println("ORIGINAL POSITION");
-	    System.out.println(this.getBoundaries());
-	    System.out.println("---------------------");
-	    Point3D ctrl = this.getElementCoordinate();
-	    System.out.println("Control point:"+ctrl+"\n");
-		for (Point3D point : this.getBoundaries()) {
-		    
-		    Point3D toRotate = new Point3D(point.getX()-ctrl.getX(), point.getY()-ctrl.getY(), point.getZ()-ctrl.getZ());
-		    System.out.println("Rotate point "+ point);
-		    System.out.println("Rotate to locale point "+ toRotate+"\n");
-		    
-		    Point3D s = IRotateUtils.rotatePoint(new Point3D(0,0,0),toRotate, axis, angle);
-		    Point3D check = new Point3D(s.getX()+ctrl.getX(), s.getY()+ctrl.getY(), s.getZ()+ctrl.getZ());
-		    System.out.println("Rotated point"+check);
-		    for (ICollidable col : elements) {
-                if (col.Collidate(check)) {
-                    return false;
-                }
-            }
-		}
-		System.out.println("---------------------");
-    	return true;
+	    Group tG = new Group();
+	    tG.setTranslateX(this.getTranslateX());
+	    tG.setTranslateY(this.getTranslateY());
+	    tG.setTranslateZ(this.getTranslateZ());
+	    Rotate tX = new Rotate(x.getAngle(),Rotate.X_AXIS);
+	    Rotate tY = new Rotate(y.getAngle(),Rotate.Y_AXIS);
+	    Rotate tZ = new Rotate(z.getAngle(),Rotate.Z_AXIS);
+	    tG.getTransforms().addAll(tX,tY,tZ);
+	    
+	    switch (axis) {
+        case X:
+            tX.setAngle(x.getAngle()+angle);
+            break;
+        case Y:
+            tY.setAngle(y.getAngle()+angle);
+            break;
+        case Z:
+            tZ.setAngle(z.getAngle()+angle);
+            break;
+        default:
+            break;
+        }
+	    for (Point3D point : this.getPoints()) {
+	        Point3D check = tG.localToParent(point);
+	        for (ICollidable col : elements) {
+	            if (col.Collidate(check)) {
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
 	}
 	
 
@@ -102,10 +111,8 @@ public abstract class FxPlayableElement extends FxElement implements IPlayable {
 		default:
 			break;
 		}
-		System.out.println("After systematic rotate");
-		System.out.println(this.getBoundaries());
-		System.out.println("----------------------------");
 	}
+    
 	public boolean canMove(MOVE direction, double step, Set<ICollidable> elements) {
 		for (Point3D point : this.getBoundaries()) {
 		    Point3D mPoint = IMoveUtils.movePoint(point, direction, step);
