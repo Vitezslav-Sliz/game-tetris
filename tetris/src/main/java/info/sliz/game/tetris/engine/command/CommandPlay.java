@@ -26,24 +26,14 @@ public abstract class CommandPlay implements ICommand{
    
     protected final boolean canPlay(final MOVE direction){
     	if (this.element.isPlayable()){
-    		for (ICollidable col : this.colidate) {
-    			if (!this.element.canPlay(direction, moveStep, col)) {
-    				return false;
-    			}
-    		}
-    		return true;
+    		return this.element.canPlay(direction, moveStep, this.colidate);
     	}else{
     		return false;
     	}
     }
     protected final boolean canPlay(final ROTATE axis){
     	if (this.element.isPlayable()){
-    		for (ICollidable col : this.colidate) {
-    			if (!this.element.canRotate(axis, angleStep, col)) {
-    				return false;
-    			}
-    		}
-    		return true;
+    		return this.element.canRotate(axis, angleStep, this.colidate);
     	}else{
     		return false;
     	}

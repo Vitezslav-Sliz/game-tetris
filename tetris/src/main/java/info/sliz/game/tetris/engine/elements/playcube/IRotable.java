@@ -14,8 +14,7 @@ public interface IRotable extends IElement {
 
 	public void rotate(final ROTATE axis, final double step);
 
-	public boolean canRotate(final ROTATE axis, final double angle,
-			ICollidable element);
+	public boolean canRotate(final ROTATE axis, final double angle,Set<ICollidable> element);
 
 	public Set<Point3D> getPoints();
 	

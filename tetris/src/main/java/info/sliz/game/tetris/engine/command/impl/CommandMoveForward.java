@@ -21,10 +21,8 @@ public class CommandMoveForward extends CommandMove {
     @Override
     public void execute() throws CommandException {
         LOGGER.debug("Execute command");
-        if (!this.canMove(MOVE.FORWARD)){
-            return;
+        if (this.element.canMove(MOVE.FORWARD, moveStep, this.colidate)){
+            element.move(MOVE.FORWARD, moveStep);
         }
-        element.move(MOVE.FORWARD, moveStep);
     }
-
 }

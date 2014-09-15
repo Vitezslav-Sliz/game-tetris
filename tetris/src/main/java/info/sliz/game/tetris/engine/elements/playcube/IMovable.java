@@ -1,5 +1,7 @@
 package info.sliz.game.tetris.engine.elements.playcube;
 
+import java.util.Set;
+
 import javafx.geometry.Point3D;
 import info.sliz.game.tetris.engine.ICollidable;
 
@@ -11,7 +13,7 @@ public interface IMovable extends IElement{
     
     public void move(final MOVE direction, final double step);
     
-    public boolean canMove(final MOVE direction, final double step, ICollidable element);
+    public boolean canMove(final MOVE direction, final double step, Set<ICollidable> element);
     
 	static class  IMoveUtils{
 		public final static Point3D movePoint(Point3D p,MOVE direction, double step){

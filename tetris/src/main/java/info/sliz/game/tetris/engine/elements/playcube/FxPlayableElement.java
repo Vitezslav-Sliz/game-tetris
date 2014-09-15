@@ -1,5 +1,7 @@
 package info.sliz.game.tetris.engine.elements.playcube;
 
+import java.util.Set;
+
 import info.sliz.game.tetris.engine.ICollidable;
 import javafx.geometry.Point3D;
 import javafx.scene.transform.Rotate;
@@ -32,15 +34,15 @@ public abstract class FxPlayableElement extends FxElement implements IPlayable {
 		}
 	}
 	
-	public boolean canPlay(MOVE direction, double step, ICollidable element) {
+	public boolean canPlay(MOVE direction, double step, Set<ICollidable> elements) {
 		if (this.playable) {
-			return this.canMove(direction, step, element);
+			return this.canMove(direction, step, elements);
 		}
 		return false;
 	}
-	public boolean canPlay(ROTATE axis, double angle, ICollidable element) {
+	public boolean canPlay(ROTATE axis, double angle, Set<ICollidable> elements) {
 		if (this.playable) {
-			return this.canRotate(axis, angle, element);
+			return this.canRotate(axis, angle, elements);
 		}
 		return false;
 	}
@@ -59,7 +61,7 @@ public abstract class FxPlayableElement extends FxElement implements IPlayable {
 		}
 	}
 
-	public boolean canRotate(ROTATE axis, double angle, ICollidable element) {
+	public boolean canRotate(ROTATE axis, double angle, Set<ICollidable> elements) {
 	    //FIXME can rotate - problems with rotation Z axis
 	    System.out.println("ORIGINAL POSITION");
 	    System.out.println(this.getBoundaries());
@@ -75,9 +77,11 @@ public abstract class FxPlayableElement extends FxElement implements IPlayable {
 		    Point3D s = IRotateUtils.rotatePoint(new Point3D(0,0,0),toRotate, axis, angle);
 		    Point3D check = new Point3D(s.getX()+ctrl.getX(), s.getY()+ctrl.getY(), s.getZ()+ctrl.getZ());
 		    System.out.println("Rotated point"+check);
-    		if (element.Collidate(check)){
-    			return false;
-    		}
+		    for (ICollidable col : elements) {
+                if (col.Collidate(check)) {
+                    return false;
+                }
+            }
 		}
 		System.out.println("---------------------");
     	return true;
@@ -102,11 +106,14 @@ public abstract class FxPlayableElement extends FxElement implements IPlayable {
 		System.out.println(this.getBoundaries());
 		System.out.println("----------------------------");
 	}
-	public boolean canMove(MOVE direction, double step, ICollidable element) {
+	public boolean canMove(MOVE direction, double step, Set<ICollidable> elements) {
 		for (Point3D point : this.getBoundaries()) {
-    		if (element.Collidate(IMoveUtils.movePoint(point, direction, step))){
-    			return false;
-    		}
+		    Point3D mPoint = IMoveUtils.movePoint(point, direction, step);
+		    for (ICollidable col : elements) {
+	            if (col.Collidate(mPoint)) {
+	                return false;
+	            }
+	        }
 		}
     	return true;
 	}
