@@ -1,15 +1,8 @@
 package info.sliz.game.tetris.ui.graphic.control;
 
+import info.sliz.game.tetris.engine.Commands;
 import info.sliz.game.tetris.engine.IEngine;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
-import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
-import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
-import info.sliz.game.tetris.engine.command.impl.CommandPlayRight;
-import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateX;
-import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateY;
-import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateZ;
-import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
-import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,28 +23,28 @@ public class KeyboardControl implements EventHandler<KeyEvent> {
         try {
             switch (event.getCode()) {
             case LEFT:
-                this.eng.getCommand(CommandPlayLeft.class).execute();
+                this.eng.callCommand(Commands.PLAY_LEFT);
                 break;
             case RIGHT:
-                this.eng.getCommand(CommandPlayRight.class).execute();
+                this.eng.callCommand(Commands.PLAY_RIGHT);
                 break;
             case UP:
-                this.eng.getCommand(CommandPlayUp.class).execute();
+                this.eng.callCommand(Commands.PLAY_UP);
                 break;
             case DOWN:
-                this.eng.getCommand(CommandPlayDown.class).execute();
+                this.eng.callCommand(Commands.PLAY_DOWN);
                 break;
             case SPACE:
-                this.eng.getCommand(CommandPlaySpace.class).execute();
+                this.eng.callCommand(Commands.PLAY_SPACE);
                 break;
             case A:
-                this.eng.getCommand(CommandPlayRotateX.class).execute();
+                this.eng.callCommand(Commands.PLAY_ROTATE_X);
                 break;
             case S:
-                this.eng.getCommand(CommandPlayRotateY.class).execute();
+                this.eng.callCommand(Commands.PLAY_ROTATE_Y);
                 break;
             case D:
-                this.eng.getCommand(CommandPlayRotateZ.class).execute();
+                this.eng.callCommand(Commands.PLAY_ROTATE_Z);
                 break;
             default:
                 break;

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class Commands {
+public class CommandManager {
 
     private final Map<Class<? extends ICommand>, ICommand> commands = new HashMap<Class<? extends ICommand>, ICommand>();
     

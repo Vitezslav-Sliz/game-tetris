@@ -1,8 +1,9 @@
 package info.sliz.game.tetris.engine.impl;
 
+import info.sliz.game.tetris.engine.Commands;
 import info.sliz.game.tetris.engine.IEngine;
-import info.sliz.game.tetris.engine.command.Commands;
-import info.sliz.game.tetris.engine.command.ICommand;
+import info.sliz.game.tetris.engine.command.CommandManager;
+import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 import info.sliz.game.tetris.engine.command.impl.CommandStartGame;
 import info.sliz.game.tetris.engine.command.impl.CommandStopGame;
 import info.sliz.game.tetris.engine.event.GameListener;
@@ -15,7 +16,7 @@ import javafx.scene.Node;
 
 public class CoreEngine extends Observable implements IEngine, GameListener{
     private Game game;
-    private final Commands commands = new Commands();
+    private final CommandManager commands = new CommandManager();
     
     public CoreEngine() {
         this.game = new Game();
@@ -27,13 +28,6 @@ public class CoreEngine extends Observable implements IEngine, GameListener{
     }
     
     /* (non-Javadoc)
-     * @see info.sliz.game.tetris.engine.impl.IEngine#getCommand(java.lang.Class)
-     */
-    public ICommand getCommand(Class<? extends ICommand> command){
-        
-        return this.commands.get(command);
-    }
-    /* (non-Javadoc)
      * @see info.sliz.game.tetris.engine.impl.IEngine#getElements()
      */
     public List<Node> getElements(){
@@ -43,5 +37,9 @@ public class CoreEngine extends Observable implements IEngine, GameListener{
         this.commands.putAll(this.game.getCommands());
         setChanged();
         notifyObservers();        
+    }
+
+    public void callCommand(Commands command) throws CommandException {
+        this.commands.get(command.getCommandClass()).execute();
     }
 }

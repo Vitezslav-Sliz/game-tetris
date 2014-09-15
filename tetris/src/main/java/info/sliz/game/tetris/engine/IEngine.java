@@ -1,6 +1,6 @@
 package info.sliz.game.tetris.engine;
 
-import info.sliz.game.tetris.engine.command.ICommand;
+import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import javafx.scene.Node;
 
 public interface IEngine {
 
-    public abstract ICommand getCommand(Class<? extends ICommand> command);
-
+    public abstract void callCommand(Commands command) throws CommandException;
+    
     public abstract List<Node> getElements();
 
 }

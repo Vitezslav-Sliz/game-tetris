@@ -1,8 +1,8 @@
 package info.sliz.game.tetris.ui.command.impl;
 
+import info.sliz.game.tetris.engine.Commands;
 import info.sliz.game.tetris.engine.IEngine;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
-import info.sliz.game.tetris.engine.command.impl.CommandStopGame;
 import info.sliz.game.tetris.ui.command.IUICommand;
 
 public class ExitCommand implements IUICommand {
@@ -14,7 +14,7 @@ public class ExitCommand implements IUICommand {
 
     public void execute() {
         try {
-            e.getCommand(CommandStopGame.class).execute();
+            e.callCommand(Commands.STOP);
         } catch (CommandException e) {
             e.printStackTrace();
         };
