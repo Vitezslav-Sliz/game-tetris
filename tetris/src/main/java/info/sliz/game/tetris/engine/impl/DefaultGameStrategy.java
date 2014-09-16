@@ -1,6 +1,7 @@
 package info.sliz.game.tetris.engine.impl;
 
 import info.sliz.game.tetris.engine.ICollidable;
+import info.sliz.game.tetris.engine.IGameStrategy;
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
@@ -38,12 +39,12 @@ import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
-public class Game implements ElementListener{
-    private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
+public class DefaultGameStrategy implements ElementListener, IGameStrategy{
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultGameStrategy.class);
+    
     
     private final GameChangedEvent e;
     private GameListener listener;
-    //private final IStatisticsStrategy statistics;
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
     private final ICommand calcElemnts;
     
@@ -53,12 +54,11 @@ public class Game implements ElementListener{
     private final IPlaybleElementGenerator generator;
     private GameRunner runner;
     
-    public Game() {
+    public DefaultGameStrategy() {
         this.e = new GameChangedEvent(this);
-        this.space = new FxGameSpace(5, 10, 10, 0.15);
+        this.space = new FxGameSpace(5, 10, 10, 10.0/100);
         this.runner = new GameRunner(1000);
         
-        //this.statistics = new DefaultGameStatistics();
         this.generator = new AllElementGeneratorStrategy(new Point3D(0, 0, -105), 10);
         this.elements = new Elements(10, new LevelColorManager(10,10, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE)); 
         this.calcElemnts = new CommandUpdateGameElements(elements,this.space, 25,10);

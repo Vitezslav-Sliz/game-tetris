@@ -2,6 +2,7 @@ package info.sliz.game.tetris.engine.impl;
 
 import info.sliz.game.tetris.engine.ICommands;
 import info.sliz.game.tetris.engine.IEngine;
+import info.sliz.game.tetris.engine.IGameStrategy;
 import info.sliz.game.tetris.engine.command.CommandManager;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 import info.sliz.game.tetris.engine.command.impl.CommandStartGame;
@@ -15,14 +16,14 @@ import java.util.Observable;
 import javafx.scene.Node;
 
 public class CoreEngine extends Observable implements IEngine, GameListener{
-    private Game game;
+    private IGameStrategy game;
     private final CommandManager commands = new CommandManager();
     
-    public CoreEngine() {
-        this.game = new Game();
+    public CoreEngine(final Games game) {
+        this.game = game.getGame();
         this.commands.putAll(this.game.getCommands());
-        this.commands.put(new CommandStartGame(game));
-        this.commands.put(new CommandStopGame(game));
+        this.commands.put(new CommandStartGame(this.game));
+        this.commands.put(new CommandStopGame(this.game));
         
         this.game.setGameListener(this);
     }

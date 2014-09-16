@@ -1,12 +1,12 @@
 package info.sliz.game.tetris.engine.command.impl;
 
+import info.sliz.game.tetris.engine.IGameStrategy;
 import info.sliz.game.tetris.engine.command.CommandGame;
-import info.sliz.game.tetris.engine.impl.Game;
 
 public class CommandStartGame extends CommandGame {
 
 
-    public CommandStartGame(Game game) {
+    public CommandStartGame(IGameStrategy game) {
         super(game);
     }
 

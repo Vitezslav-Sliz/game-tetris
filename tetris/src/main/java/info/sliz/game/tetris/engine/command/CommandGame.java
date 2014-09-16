@@ -1,12 +1,12 @@
 package info.sliz.game.tetris.engine.command;
 
-import info.sliz.game.tetris.engine.impl.Game;
+import info.sliz.game.tetris.engine.IGameStrategy;
 
 public abstract class CommandGame implements ICommand{
 
-    protected final Game game;
+    protected final IGameStrategy game;
 
-    public CommandGame(final Game game) {
+    public CommandGame(final IGameStrategy game) {
         super();
         this.game = game;
     }

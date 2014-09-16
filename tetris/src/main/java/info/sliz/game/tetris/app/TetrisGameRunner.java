@@ -11,6 +11,7 @@ import info.sliz.game.tetris.config.Configuration;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 import info.sliz.game.tetris.engine.impl.Commands;
 import info.sliz.game.tetris.engine.impl.CoreEngine;
+import info.sliz.game.tetris.engine.impl.Games;
 import info.sliz.game.tetris.translate.ITranslator;
 import info.sliz.game.tetris.translate.Translate.KEY;
 import info.sliz.game.tetris.translate.impl.Translator;
@@ -33,7 +34,7 @@ public class TetrisGameRunner extends Application implements Observer{
     private final Group root = new Group();
     private final Group world = new Group();
     private final PerspectiveCamera camera = new PerspectiveCamera(true);
-    private CoreEngine engine = new CoreEngine();
+    private CoreEngine engine = new CoreEngine(Games.NORMAL_5x5x10);
     private KeyboardControl ctrl = new KeyboardControl(engine);
     private void buildScene() {
         root.getChildren().add(world);
