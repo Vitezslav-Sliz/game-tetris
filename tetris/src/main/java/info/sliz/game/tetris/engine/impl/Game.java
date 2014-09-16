@@ -57,6 +57,7 @@ public class Game implements ElementListener{
         this.e = new GameChangedEvent(this);
         this.space = new FxGameSpace(5, 10, 10, 0.15);
         this.runner = new GameRunner(1000);
+        
         //this.statistics = new DefaultGameStatistics();
         this.generator = new AllElementGeneratorStrategy(new Point3D(0, 0, -105), 10);
         this.elements = new Elements(10, new LevelColorManager(10,10, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE)); 

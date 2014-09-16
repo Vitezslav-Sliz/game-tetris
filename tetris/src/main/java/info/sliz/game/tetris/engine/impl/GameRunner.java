@@ -14,14 +14,16 @@ import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 
 final class GameRunner extends Thread{
     private static ExecutorService QUEUE = Executors.newFixedThreadPool(10);
-    private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GameRunner.class);
     
-    private final int time;
+    private int time;
     private boolean run;
     private ICommand command;
+    private boolean pause;
     public GameRunner(final int time) {
         this.time = time;
         this.run = true;
+        this.pause = false;
     }
     public void setICommand(final ICommand command){
         this.command = command;
@@ -29,6 +31,13 @@ final class GameRunner extends Thread{
     public void Stop(){
         this.run = false;
     }
+    public void setTime(final int time){
+        this.time = time;
+    }
+    public void setPause(final boolean pause){
+        this.pause = pause;
+    }
+    
     @Override
     public void run() {
         LOGGER.debug(String.format("Running game... with '%s' ms time interval",this.time));
@@ -37,8 +46,12 @@ final class GameRunner extends Thread{
                 Thread.sleep(this.time);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }               
-            QUEUE.execute(new RunnerTask(this.command));
+            }
+            if (!pause){
+                QUEUE.execute(new RunnerTask(this.command));
+            }else{
+                LOGGER.debug("Runner paused");
+            }
         }
         QUEUE.shutdown();
         LOGGER.debug("Stopping game... ");

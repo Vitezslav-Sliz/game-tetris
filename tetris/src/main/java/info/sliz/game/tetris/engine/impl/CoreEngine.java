@@ -1,6 +1,6 @@
 package info.sliz.game.tetris.engine.impl;
 
-import info.sliz.game.tetris.engine.Commands;
+import info.sliz.game.tetris.engine.ICommands;
 import info.sliz.game.tetris.engine.IEngine;
 import info.sliz.game.tetris.engine.command.CommandManager;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
@@ -39,7 +39,7 @@ public class CoreEngine extends Observable implements IEngine, GameListener{
         notifyObservers();        
     }
 
-    public void callCommand(Commands command) throws CommandException {
+    public void callCommand(ICommands command) throws CommandException {
         this.commands.get(command.getCommandClass()).execute();
     }
 }

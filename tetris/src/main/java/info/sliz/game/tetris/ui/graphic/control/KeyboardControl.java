@@ -1,8 +1,8 @@
 package info.sliz.game.tetris.ui.graphic.control;
 
-import info.sliz.game.tetris.engine.Commands;
 import info.sliz.game.tetris.engine.IEngine;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
+import info.sliz.game.tetris.engine.impl.Commands;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

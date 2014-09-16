@@ -1,5 +1,6 @@
-package info.sliz.game.tetris.engine;
+package info.sliz.game.tetris.engine.impl;
 
+import info.sliz.game.tetris.engine.ICommands;
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
@@ -12,7 +13,7 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 import info.sliz.game.tetris.engine.command.impl.CommandStartGame;
 import info.sliz.game.tetris.engine.command.impl.CommandStopGame;
 
-public enum Commands {
+public enum Commands implements ICommands{
 
     PLAY(CommandStartGame.class), STOP(CommandStopGame.class), PLAY_LEFT(
             CommandPlayLeft.class), PLAY_RIGHT(CommandPlayRight.class), PLAY_UP(
