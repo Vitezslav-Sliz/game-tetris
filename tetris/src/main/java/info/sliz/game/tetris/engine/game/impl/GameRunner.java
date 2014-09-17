@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 
-final class GameRunner extends Thread{
+public final class GameRunner extends Thread{
     private static ExecutorService QUEUE = Executors.newFixedThreadPool(10);
     private static final Logger LOGGER = LoggerFactory.getLogger(GameRunner.class);
     

@@ -23,8 +23,7 @@ import info.sliz.game.tetris.engine.elements.impl.Elements;
 import info.sliz.game.tetris.engine.elements.impl.LevelColorManager;
 import info.sliz.game.tetris.engine.elements.impl.AllElementGeneratorStrategy;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
-import info.sliz.game.tetris.engine.event.GameListener;
-import info.sliz.game.tetris.engine.game.AbstractStrategy;
+import info.sliz.game.tetris.engine.game.AbstractGameStrategy;
 import info.sliz.game.tetris.engine.gamespace.impl.FxGameSpace;
 
 import java.util.ArrayList;
@@ -39,25 +38,30 @@ import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
-public class DefaultGameStrategy extends AbstractStrategy implements ElementListener, IGameStrategy{
+public class DefaultGameStrategy extends AbstractGameStrategy implements ElementListener, IGameStrategy{
     static final Logger LOGGER = LoggerFactory.getLogger(DefaultGameStrategy.class);
+    private final static double ANGLE = 90;
     
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
     final ICommand calcElemnts;
+    
+    private final int size;
+    private final int height;
+    private final int blockSize;
     
     private final FxGameSpace space;
     final IElements elements;
     FxPlayableElement element;
     private final IPlaybleElementGenerator generator;
-    private GameRunner runner;
-    
-    public DefaultGameStrategy() {
-        this.space = new FxGameSpace(5, 10, 10, 10.0/100);
-        this.runner = new GameRunner(1000);
-        
-        this.generator = new AllElementGeneratorStrategy(new Point3D(0, 0, -105), 10);
-        this.elements = new Elements(10, new LevelColorManager(10,10, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE)); 
-        this.calcElemnts = new CommandUpdateGameElements(elements,this.space, 25,10);
+    public DefaultGameStrategy(final int size, final int height, final int blockSize, final int initialSpeed, final Color... colors) {
+        super(initialSpeed);
+        this.size = size;
+        this.height = height;
+        this.blockSize = blockSize;
+        this.space = new FxGameSpace(size, height, blockSize, this.blockSize/100.0);
+        this.generator = new AllElementGeneratorStrategy(new Point3D(0, 0, -(this.height*this.blockSize)+this.blockSize/2), this.blockSize);
+        this.elements = new Elements(this.blockSize, new LevelColorManager(this.blockSize,this.blockSize, colors)); 
+        this.calcElemnts = new CommandUpdateGameElements(elements,this.space, this.size*this.size,this.blockSize);
         
         updateToNewElement();
     }
@@ -69,15 +73,15 @@ public class DefaultGameStrategy extends AbstractStrategy implements ElementList
         col.add(space);
         col.addAll(this.elements.getColidable());
         
-        commands.add(new CommandPlayLeft(this.element,10,col));
-        commands.add(new CommandPlayRight(this.element,10,col));
-        commands.add(new CommandPlayUp(this.element,10,col));
-        commands.add(new CommandPlayDown(this.element,10,col));
-        commands.add(new CommandPlaySpace(this.element,10,col));
-        commands.add(new CommandPlayRotateX(this.element,90,col));
-        commands.add(new CommandPlayRotateY(this.element,90,col));
-        commands.add(new CommandPlayRotateZ(this.element,90,col));
-        CommandPlay m = new CommandPlayAuto(this.element,10,col);
+        commands.add(new CommandPlayLeft(this.element,this.blockSize,col));
+        commands.add(new CommandPlayRight(this.element,this.blockSize,col));
+        commands.add(new CommandPlayUp(this.element,this.blockSize,col));
+        commands.add(new CommandPlayDown(this.element,this.blockSize,col));
+        commands.add(new CommandPlaySpace(this.element,this.blockSize,col));
+        commands.add(new CommandPlayRotateX(this.element,ANGLE,col));
+        commands.add(new CommandPlayRotateY(this.element,ANGLE,col));
+        commands.add(new CommandPlayRotateZ(this.element,ANGLE,col));
+        CommandPlay m = new CommandPlayAuto(this.element,this.blockSize,col);
         commands.add(m);
         
         this.element.setEventListener(this);
@@ -97,20 +101,7 @@ public class DefaultGameStrategy extends AbstractStrategy implements ElementList
         ret.add(element);
         return ret;
     }
-
-    public void setGameListener(final GameListener listener){
-        this.listener = listener;
-    }
     
-    public void stopGame() {
-        this.runner.Stop();
-    }
-    public void startGame() {
-        this.runner.start();
-    }
-    public boolean isRunning(){
-        return this.runner.isAlive();
-    }
     public void elementChanged(ElementEvent e) {
         LOGGER.debug("Game changed - reflect changes");
         if (!this.element.isPlayable()){
