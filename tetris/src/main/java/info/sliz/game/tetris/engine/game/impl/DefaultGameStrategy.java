@@ -1,4 +1,4 @@
-package info.sliz.game.tetris.engine.impl;
+package info.sliz.game.tetris.engine.game.impl;
 
 import info.sliz.game.tetris.engine.ICollidable;
 import info.sliz.game.tetris.engine.IGameStrategy;
@@ -24,7 +24,7 @@ import info.sliz.game.tetris.engine.elements.impl.LevelColorManager;
 import info.sliz.game.tetris.engine.elements.impl.AllElementGeneratorStrategy;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.event.GameListener;
-import info.sliz.game.tetris.engine.event.impl.GameChangedEvent;
+import info.sliz.game.tetris.engine.game.AbstractStrategy;
 import info.sliz.game.tetris.engine.gamespace.impl.FxGameSpace;
 
 import java.util.ArrayList;
@@ -39,23 +39,19 @@ import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
-public class DefaultGameStrategy implements ElementListener, IGameStrategy{
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultGameStrategy.class);
+public class DefaultGameStrategy extends AbstractStrategy implements ElementListener, IGameStrategy{
+    static final Logger LOGGER = LoggerFactory.getLogger(DefaultGameStrategy.class);
     
-    
-    private final GameChangedEvent e;
-    private GameListener listener;
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
-    private final ICommand calcElemnts;
+    final ICommand calcElemnts;
     
     private final FxGameSpace space;
-    private final IElements elements;
-    private FxPlayableElement element;
+    final IElements elements;
+    FxPlayableElement element;
     private final IPlaybleElementGenerator generator;
     private GameRunner runner;
     
     public DefaultGameStrategy() {
-        this.e = new GameChangedEvent(this);
         this.space = new FxGameSpace(5, 10, 10, 10.0/100);
         this.runner = new GameRunner(1000);
         
@@ -65,7 +61,7 @@ public class DefaultGameStrategy implements ElementListener, IGameStrategy{
         
         updateToNewElement();
     }
-    private final void updateToNewElement(){
+    final void updateToNewElement(){
         this.element = this.generator.generateElement();
         this.commands.clear();
         
@@ -115,7 +111,6 @@ public class DefaultGameStrategy implements ElementListener, IGameStrategy{
     public boolean isRunning(){
         return this.runner.isAlive();
     }
-
     public void elementChanged(ElementEvent e) {
         LOGGER.debug("Game changed - reflect changes");
         if (!this.element.isPlayable()){
@@ -129,10 +124,7 @@ public class DefaultGameStrategy implements ElementListener, IGameStrategy{
             updateToNewElement();
         }
         LOGGER.debug("Elements in game is: " + (this.getElements().size()-1));
-        if(this.listener != null){
-            LOGGER.debug("Listener is exist - running event trigger");
-            this.listener.gameChanged(this.e);
-        }
+        gameChanged();
     }
 }
 

@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 
 import info.sliz.game.tetris.config.Configuration;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
+import info.sliz.game.tetris.engine.game.Games;
 import info.sliz.game.tetris.engine.impl.Commands;
 import info.sliz.game.tetris.engine.impl.CoreEngine;
-import info.sliz.game.tetris.engine.impl.Games;
 import info.sliz.game.tetris.translate.ITranslator;
 import info.sliz.game.tetris.translate.Translate.KEY;
 import info.sliz.game.tetris.translate.impl.Translator;

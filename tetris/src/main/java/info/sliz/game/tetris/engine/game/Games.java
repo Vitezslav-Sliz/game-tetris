@@ -1,7 +1,8 @@
-package info.sliz.game.tetris.engine.impl;
+package info.sliz.game.tetris.engine.game;
 
 import info.sliz.game.tetris.engine.IGameStrategy;
 import info.sliz.game.tetris.engine.IGames;
+import info.sliz.game.tetris.engine.game.impl.DefaultGameStrategy;
 
 public enum Games implements IGames{
 
