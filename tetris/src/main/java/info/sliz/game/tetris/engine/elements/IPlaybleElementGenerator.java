@@ -4,5 +4,5 @@ import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 
 public interface IPlaybleElementGenerator {
 
-	public FxPlayableElement generateElement();
+    public FxPlayableElement generateElement();
 }

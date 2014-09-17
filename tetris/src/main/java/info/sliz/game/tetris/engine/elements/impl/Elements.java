@@ -21,17 +21,17 @@ public final class Elements implements IElements, ElementListener {
 
     private final int elementSize;
     private final IColorManager cm;
-    
+
     private final Set<FxInplaceElement> elements = new HashSet<FxInplaceElement>();
-    
-    
+
     public Elements(final int size, final IColorManager cm) {
         this.elementSize = size;
         this.cm = cm;
     }
+
     public void createAddInGameElement(IElement element) {
         for (Point3D point : element.getBoundaries()) {
-            FxInplaceElement el = new FxInplaceElement(point, this.elementSize,this.cm.getColor(point));
+            FxInplaceElement el = new FxInplaceElement(point, this.elementSize, this.cm.getColor(point));
             el.setEventListener(this);
             this.elements.add(el);
         }
@@ -41,17 +41,21 @@ public final class Elements implements IElements, ElementListener {
     public List<Node> getNodes() {
         return Collections.unmodifiableList(new ArrayList<Node>(elements));
     }
+
     public List<ICollidable> getColidable() {
         return Collections.unmodifiableList(new ArrayList<ICollidable>(elements));
     }
+
     public List<IMovable> getMovable() {
         return Collections.unmodifiableList(new ArrayList<IMovable>(elements));
     }
+
     public void removeAll(List<Object> remove) {
         this.elements.removeAll(remove);
     }
+
     public void elementChanged(ElementEvent e) {
-        FxInplaceElement el = (FxInplaceElement)e.getSource();
+        FxInplaceElement el = (FxInplaceElement) e.getSource();
         el.setColor(this.cm.getColor(el.getElementCoordinate()));
     }
 }

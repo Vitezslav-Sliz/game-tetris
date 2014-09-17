@@ -9,7 +9,7 @@ import javafx.scene.Node;
 public interface IEngine {
 
     public abstract void callCommand(ICommands command) throws CommandException;
-    
+
     public abstract List<Node> getElements();
 
 }

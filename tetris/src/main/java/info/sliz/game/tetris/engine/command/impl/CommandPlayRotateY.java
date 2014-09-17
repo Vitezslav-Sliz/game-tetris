@@ -11,20 +11,18 @@ import info.sliz.game.tetris.engine.elements.playcube.IPlayable;
 import info.sliz.game.tetris.engine.elements.playcube.IRotable.ROTATE;
 
 public class CommandPlayRotateY extends CommandPlay {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CommandPlayRotateY.class);
-	
-	public CommandPlayRotateY(IPlayable element, double angle,Set<ICollidable> colidate) {
-		super(element, 0,angle, colidate);
-	}
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandPlayRotateY.class);
 
-	@Override
-	public void execute() throws CommandPlayException {
-		LOGGER.debug("Execute command");
-        if (!this.canPlay(ROTATE.Y)){
+    public CommandPlayRotateY(IPlayable element, double angle, Set<ICollidable> colidate) {
+        super(element, 0, angle, colidate);
+    }
+
+    @Override
+    public void execute() throws CommandPlayException {
+        LOGGER.debug("Execute command");
+        if (!this.canPlay(ROTATE.Y)) {
             throw new CommandPlayException("Can't play: colide with another elements, or is not playable");
         }
         element.rotate(ROTATE.Y, angleStep);
-		
-	}
-
+    }
 }

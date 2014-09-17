@@ -11,17 +11,18 @@ import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable.MOVE;
 
 public class CommandPlaySpace extends CommandPlay {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandPlayRight.class);
-    
-    public CommandPlaySpace(final FxPlayableElement el,final double step,final Set<ICollidable> colidate) {
-        super(el, step,0, colidate);
+
+    public CommandPlaySpace(final FxPlayableElement el, final double step, final Set<ICollidable> colidate) {
+        super(el, step, 0, colidate);
     }
+
     @Override
     public void execute() {
         LOGGER.debug("Execute command");
         while (true) {
-            if (!this.canPlay(MOVE.FORWARD)){
+            if (!this.canPlay(MOVE.FORWARD)) {
                 element.setPlayable(false);
                 return;
             }

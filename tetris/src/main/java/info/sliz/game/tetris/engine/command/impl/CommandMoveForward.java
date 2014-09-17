@@ -13,7 +13,7 @@ import info.sliz.game.tetris.engine.elements.playcube.IMovable.MOVE;
 public class CommandMoveForward extends CommandMove {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandMoveForward.class);
-    
+
     public CommandMoveForward(IMovable element, double step, Set<ICollidable> colidate) {
         super(element, step, colidate);
     }
@@ -21,7 +21,7 @@ public class CommandMoveForward extends CommandMove {
     @Override
     public void execute() throws CommandException {
         LOGGER.debug("Execute command");
-        if (this.element.canMove(MOVE.FORWARD, moveStep, this.colidate)){
+        if (this.element.canMove(MOVE.FORWARD, moveStep, this.colidate)) {
             element.move(MOVE.FORWARD, moveStep);
         }
     }

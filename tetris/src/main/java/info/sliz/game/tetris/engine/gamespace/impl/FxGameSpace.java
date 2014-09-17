@@ -16,14 +16,8 @@ public class FxGameSpace extends Group implements ICollidable {
     private final double boundaryZ;
 
     public FxGameSpace(final int lenghtAndHeight, final int depth, final int sizeSquare, final double lineWidthSquare) {
-        LOGGER.debug(String.format(
-                "Start Generate Game Space: %d X %d X %d size: %d line: %f",
-                lenghtAndHeight, lenghtAndHeight, depth, sizeSquare,
-                lineWidthSquare));
-        this.getChildren().add(
-                new FxDeskGenerator(lenghtAndHeight * sizeSquare,
-                        lenghtAndHeight * sizeSquare, lenghtAndHeight,
-                        lenghtAndHeight, lineWidthSquare));
+        LOGGER.debug(String.format("Start Generate Game Space: %d X %d X %d size: %d line: %f", lenghtAndHeight, lenghtAndHeight, depth, sizeSquare, lineWidthSquare));
+        this.getChildren().add(new FxDeskGenerator(lenghtAndHeight * sizeSquare, lenghtAndHeight * sizeSquare, lenghtAndHeight, lenghtAndHeight, lineWidthSquare));
 
         for (int i = 0; i < 4; i++) {
             Group des = new Group();
@@ -31,22 +25,16 @@ public class FxGameSpace extends Group implements ICollidable {
             r2.setAxis(Rotate.Z_AXIS);
             r2.setAngle(i * 90);
             des.getTransforms().add(r2);
-            des.getChildren().add(
-                    createGroup(lenghtAndHeight * sizeSquare, depth
-                            * sizeSquare, lenghtAndHeight, depth,
-                            lineWidthSquare));
+            des.getChildren().add(createGroup(lenghtAndHeight * sizeSquare, depth * sizeSquare, lenghtAndHeight, depth, lineWidthSquare));
             this.getChildren().add(des);
         }
         boundaryX = lenghtAndHeight * sizeSquare / 2;
         boundaryY = lenghtAndHeight * sizeSquare / 2;
         boundaryZ = depth / 2;
-        LOGGER.debug(String
-                .format("Boundary for gamespace are X[%.3f,-%.3f] Y[%.3f,-%.3f] Z[%.3f]",
-                        boundaryX, boundaryX, boundaryY, boundaryY, boundaryZ));
+        LOGGER.debug(String.format("Boundary for gamespace are X[%.3f,-%.3f] Y[%.3f,-%.3f] Z[%.3f]", boundaryX, boundaryX, boundaryY, boundaryY, boundaryZ));
     }
 
-    private static Group createGroup(final int lenght, final int depth,
-            final int countX, final int countY, final double lineWidht) {
+    private static Group createGroup(final int lenght, final int depth, final int countX, final int countY, final double lineWidht) {
         Group group = new Group();
         Rotate r = new Rotate();
         r.setAxis(Rotate.X_AXIS);
@@ -54,14 +42,12 @@ public class FxGameSpace extends Group implements ICollidable {
         group.getTransforms().add(r);
         group.setTranslateY(lenght / 2);
         group.setTranslateZ(-depth / 2);
-        LOGGER.debug(String.format("Set Translate for Game desc: [%d,%d,%d]",
-                0, lenght / 2, -depth / 2));
-        group.getChildren().add(
-                new FxDeskGenerator(lenght, depth, countX, countY, lineWidht));
+        LOGGER.debug(String.format("Set Translate for Game desc: [%d,%d,%d]", 0, lenght / 2, -depth / 2));
+        group.getChildren().add(new FxDeskGenerator(lenght, depth, countX, countY, lineWidht));
         return group;
     }
 
-    public boolean Collidate(Point3D point) {
+    public boolean collidate(Point3D point) {
         LOGGER.debug("Check collision for: " + point);
         if ((point.getX()) <= -boundaryX || (point.getX()) >= boundaryX) {
             return true;

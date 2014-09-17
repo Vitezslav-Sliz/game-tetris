@@ -5,11 +5,11 @@ import info.sliz.game.tetris.engine.IGameStrategy;
 import info.sliz.game.tetris.engine.IGames;
 import info.sliz.game.tetris.engine.game.impl.DefaultGameStrategy;
 
-public enum Games implements IGames{
+public enum Games implements IGames {
 
-    NORMAL_5x5x10(new DefaultGameStrategy(5, 10, 10, 1000, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE)),
-    NORMAL_7x7x10(new DefaultGameStrategy(7, 10, 10, 1000, Color.YELLOW,Color.BLUE,Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE));
-    
+    NORMAL_5X5X10(new DefaultGameStrategy(5, 10, 10, 1000, Color.YELLOW, Color.BLUE, Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE)),
+    NORMAL_7X7X10(new DefaultGameStrategy(7, 10, 10, 1000, Color.YELLOW, Color.BLUE, Color.RED, Color.GREEN, Color.INDIGO, Color.CYAN, Color.MAGENTA, Color.VIOLET, Color.BEIGE));
+
     private final IGameStrategy game;
 
     private Games(IGameStrategy game) {

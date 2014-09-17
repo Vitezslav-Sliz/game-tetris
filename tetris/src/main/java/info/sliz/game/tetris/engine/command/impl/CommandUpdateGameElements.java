@@ -17,14 +17,14 @@ import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.elements.IElements;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable;
 
-public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>, Predicate<IMovable>{
+public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>, Predicate<IMovable> {
 
     private final IElements elements;
     private final int levelcount;
     private final int step;
     protected final ICollidable colidate;
     private Double d;
-    
+
     public CommandUpdateGameElements(IElements elements, final ICollidable colidate, final int levelcount, final int moveStep) {
         this.elements = elements;
         this.levelcount = levelcount;
@@ -32,11 +32,11 @@ public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>
         this.colidate = colidate;
         d = Double.NaN;
     }
-    
+
     public void execute() throws CommandException {
         while (true) {
-            this.d = CommandUpdateGameElements.getZwithFullLevel(this.elements.getMovable(),levelcount);
-            if (this.d.isNaN()){
+            this.d = CommandUpdateGameElements.getZwithFullLevel(this.elements.getMovable(), levelcount);
+            if (this.d.isNaN()) {
                 break;
             }
             List<Object> toRemove = new ArrayList<Object>();
@@ -50,35 +50,36 @@ public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>
             col.addAll(this.elements.getColidable());
             col.add(this.colidate);
             for (IMovable iMovable : sorted) {
-                new CommandMoveForward(iMovable,step,col).execute();;
+                new CommandMoveForward(iMovable, step, col).execute();
             }
         }
     }
 
-    private final static Double getZwithFullLevel(List<IMovable> elements, final int levelcount){
+    private static final Double getZwithFullLevel(List<IMovable> elements, final int levelcount) {
         Map<Double, Integer> elByZ = new HashMap<Double, Integer>();
         for (IMovable e : elements) {
-            Integer v = elByZ.get(e.getElementCoordinate().getZ()); 
-            if (v == null){
+            Integer v = elByZ.get(e.getElementCoordinate().getZ());
+            if (v == null) {
                 elByZ.put(e.getElementCoordinate().getZ(), new Integer(1));
-            }else{
+            } else {
                 elByZ.put(e.getElementCoordinate().getZ(), new Integer(++v));
             }
         }
-        for (final Entry<Double,Integer> entry : elByZ.entrySet()) {
-            if (entry.getValue() == levelcount){
-               return entry.getKey();
+        for (final Entry<Double, Integer> entry : elByZ.entrySet()) {
+            if (entry.getValue() == levelcount) {
+                return entry.getKey();
             }
         }
         return Double.NaN;
-        
+
     }
+
     public int compare(IMovable o1, IMovable o2) {
         return Double.compare(o1.getElementCoordinate().getZ(), o2.getElementCoordinate().getZ());
     }
 
     public boolean test(IMovable t) {
-        return  t.getElementCoordinate().getZ() == this.d;
+        return t.getElementCoordinate().getZ() == this.d;
     }
 
 }

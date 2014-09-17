@@ -12,50 +12,56 @@ import org.slf4j.LoggerFactory;
 import info.sliz.game.tetris.engine.command.ICommand;
 import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 
-public final class GameRunner extends Thread{
+public final class GameRunner extends Thread {
     private static ExecutorService QUEUE = Executors.newFixedThreadPool(10);
     private static final Logger LOGGER = LoggerFactory.getLogger(GameRunner.class);
-    
+
     private int time;
     private boolean run;
     private ICommand command;
     private boolean pause;
+
     public GameRunner(final int time) {
         this.time = time;
         this.run = true;
         this.pause = false;
     }
-    public void setICommand(final ICommand command){
+
+    public void setICommand(final ICommand command) {
         this.command = command;
     }
-    public void Stop(){
+
+    public void stopRunner() {
         this.run = false;
     }
-    public void setTime(final int time){
+
+    public void setTime(final int time) {
         this.time = time;
     }
-    public void setPause(final boolean pause){
+
+    public void setPause(final boolean pause) {
         this.pause = pause;
     }
-    
+
     @Override
     public void run() {
-        LOGGER.debug(String.format("Running game... with '%s' ms time interval",this.time));
+        LOGGER.debug(String.format("Running game... with '%s' ms time interval", this.time));
         while (run) {
             try {
                 Thread.sleep(this.time);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error("Runner interupted", e);
             }
-            if (!pause){
+            if (!pause) {
                 QUEUE.execute(new RunnerTask(this.command));
-            }else{
+            } else {
                 LOGGER.debug("Runner paused");
             }
         }
         QUEUE.shutdown();
         LOGGER.debug("Stopping game... ");
     }
+
     final class RunnerTask extends Task<Void> {
 
         private final ICommand move;
@@ -69,13 +75,13 @@ public final class GameRunner extends Thread{
             LOGGER.debug("Running Move Task");
             Platform.runLater(new Runnable() {
                 public void run() {
-                    if (move != null){
+                    if (move != null) {
                         try {
                             move.execute();
                         } catch (CommandException e) {
-                            LOGGER.debug("Problem with move",e);
+                            LOGGER.debug("Problem with move", e);
                         }
-                    }else{
+                    } else {
                         LOGGER.error("No Command assigned");
                     }
                 }
@@ -83,4 +89,4 @@ public final class GameRunner extends Thread{
             return null;
         }
     }
-} 
+}

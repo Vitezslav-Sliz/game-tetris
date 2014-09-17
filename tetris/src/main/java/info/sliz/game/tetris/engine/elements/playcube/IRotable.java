@@ -7,14 +7,14 @@ import info.sliz.game.tetris.engine.ICollidable;
 
 public interface IRotable extends IElement {
 
-	public static enum ROTATE {
-		X, Y, Z
-	}
+    public static enum ROTATE {
+        X, Y, Z
+    }
 
-	public void rotate(final ROTATE axis, final double step);
+    public void rotate(final ROTATE axis, final double step);
 
-	public boolean canRotate(final ROTATE axis, final double angle,Set<ICollidable> element);
+    public boolean canRotate(final ROTATE axis, final double angle, Set<ICollidable> element);
 
-	public Set<Point3D> getPoints();
-	
+    public Set<Point3D> getPoints();
+
 }

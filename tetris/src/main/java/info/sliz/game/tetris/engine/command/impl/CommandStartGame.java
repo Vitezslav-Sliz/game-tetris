@@ -5,17 +5,15 @@ import info.sliz.game.tetris.engine.command.CommandGame;
 
 public class CommandStartGame extends CommandGame {
 
-
     public CommandStartGame(IGameStrategy game) {
         super(game);
     }
 
     public void execute() throws CommandException {
-        if (!game.isRunning()){
+        if (!game.isRunning()) {
             game.startGame();
-        }else{
+        } else {
             throw new CommandException("Game is already running!");
         }
     }
-
 }

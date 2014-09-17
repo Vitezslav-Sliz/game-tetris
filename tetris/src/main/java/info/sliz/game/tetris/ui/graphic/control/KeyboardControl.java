@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
 public class KeyboardControl implements EventHandler<KeyEvent> {
     private static final Logger LOGGER = LoggerFactory.getLogger(KeyboardControl.class);
     private IEngine eng;
-    
+
     public KeyboardControl(final IEngine engine) {
         this.eng = engine;
     }
@@ -50,7 +50,7 @@ public class KeyboardControl implements EventHandler<KeyEvent> {
                 break;
             }
         } catch (CommandException e) {
-            LOGGER.info(String.format("Problem with Key '%s'. Cause: %s",event.getCode().toString(),e.getMessage()));
+            LOGGER.info(String.format("Problem with Key '%s'. Cause: %s", event.getCode().toString(), e.getMessage()));
         }
     }
 }

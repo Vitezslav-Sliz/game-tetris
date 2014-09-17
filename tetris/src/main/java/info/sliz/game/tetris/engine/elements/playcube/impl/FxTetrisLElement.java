@@ -7,9 +7,9 @@ import info.sliz.game.tetris.engine.elements.playcube.FxTetrisMultiElement;
 
 public final class FxTetrisLElement extends FxTetrisMultiElement {
 
-    public FxTetrisLElement(final Point3D initial,final int size) {
+    public FxTetrisLElement(final Point3D initial, final int size) {
         super(initial);
-        
+
         FxCube c = new FxPlayCube(size);
         this.getChildren().add(c);
         this.cubes.add(c);
@@ -18,7 +18,7 @@ public final class FxTetrisLElement extends FxTetrisMultiElement {
         c.setTranslateX(-size);
         this.getChildren().add(c);
         this.cubes.add(c);
-        
+
         c = new FxPlayCube(size);
         c.setTranslateY(-size);
         this.getChildren().add(c);

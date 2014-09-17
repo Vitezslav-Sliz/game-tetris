@@ -4,6 +4,6 @@ import javafx.geometry.Point3D;
 
 public interface ICollidable {
 
-    public boolean Collidate(final Point3D point);
-   
+    public boolean collidate(final Point3D point);
+
 }

@@ -8,29 +8,29 @@ import info.sliz.game.tetris.engine.event.impl.GameChangedEvent;
 import info.sliz.game.tetris.engine.game.impl.GameRunner;
 
 public abstract class AbstractGameStrategy {
-    static final Logger LOGGER = LoggerFactory.getLogger(AbstractGameStrategy.class);
-    protected final GameChangedEvent e;
-    protected GameListener listener;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractGameStrategy.class);
+    private final GameChangedEvent e;
+    private GameListener listener;
     protected final GameRunner runner;
 
     public AbstractGameStrategy(final int initialspeed) {
         this.e = new GameChangedEvent(this);
         this.runner = new GameRunner(initialspeed);
     }
-    
-    public void setGameListener(final GameListener listener){
+
+    public void setGameListener(final GameListener listener) {
         this.listener = listener;
     }
-    
-    protected void gameChanged(){
-        if(this.listener != null){
+
+    protected void gameChanged() {
+        if (this.listener != null) {
             LOGGER.debug("Listener is exist - running event trigger");
             this.listener.gameChanged(this.e);
         }
     }
 
     public void stopGame() {
-        this.runner.Stop();
+        this.runner.stopRunner();
     }
 
     public void startGame() {

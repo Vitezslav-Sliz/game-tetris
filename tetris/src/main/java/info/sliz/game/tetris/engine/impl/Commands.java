@@ -13,21 +13,18 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
 import info.sliz.game.tetris.engine.command.impl.CommandStartGame;
 import info.sliz.game.tetris.engine.command.impl.CommandStopGame;
 
-public enum Commands implements ICommands{
+public enum Commands implements ICommands {
 
-    PLAY(CommandStartGame.class), STOP(CommandStopGame.class), PLAY_LEFT(
-            CommandPlayLeft.class), PLAY_RIGHT(CommandPlayRight.class), PLAY_UP(
-            CommandPlayUp.class), PLAY_DOWN(CommandPlayDown.class), PLAY_SPACE(
-            CommandPlaySpace.class), PLAY_ROTATE_X(CommandPlayRotateX.class), PLAY_ROTATE_Y(
-            CommandPlayRotateY.class), PLAY_ROTATE_Z(CommandPlayRotateZ.class);
+    PLAY(CommandStartGame.class), STOP(CommandStopGame.class), PLAY_LEFT(CommandPlayLeft.class), PLAY_RIGHT(CommandPlayRight.class), PLAY_UP(CommandPlayUp.class), PLAY_DOWN(CommandPlayDown.class), PLAY_SPACE(
+            CommandPlaySpace.class), PLAY_ROTATE_X(CommandPlayRotateX.class), PLAY_ROTATE_Y(CommandPlayRotateY.class), PLAY_ROTATE_Z(CommandPlayRotateZ.class);
 
-    private final Class<? extends ICommand> command;
+    private final String command;
 
     private Commands(Class<? extends ICommand> command) {
-        this.command = command;
+        this.command = command.getName();
     }
 
-    public Class<? extends ICommand> getCommandClass() {
+    public String getCommandClassName() {
         return this.command;
     }
 }

@@ -2,7 +2,7 @@ package info.sliz.game.tetris.engine.command;
 
 import info.sliz.game.tetris.engine.IGameStrategy;
 
-public abstract class CommandGame implements ICommand{
+public abstract class CommandGame implements ICommand {
 
     protected final IGameStrategy game;
 
@@ -10,5 +10,6 @@ public abstract class CommandGame implements ICommand{
         super();
         this.game = game;
     }
+
     public abstract void execute() throws CommandException;
 }

@@ -28,14 +28,15 @@ import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class TetrisGameRunner extends Application implements Observer{
+public class TetrisGameRunner extends Application implements Observer {
     private static final Logger LOGGER = LoggerFactory.getLogger(TetrisGameRunner.class);
     private final ITranslator trans = Translator.getInstance();
     private final Group root = new Group();
     private final Group world = new Group();
     private final PerspectiveCamera camera = new PerspectiveCamera(true);
-    private CoreEngine engine = new CoreEngine(Games.NORMAL_5x5x10);
+    private CoreEngine engine = new CoreEngine(Games.NORMAL_5X5X10);
     private KeyboardControl ctrl = new KeyboardControl(engine);
+
     private void buildScene() {
         root.getChildren().add(world);
         camera.setNearClip(0.1);
@@ -47,7 +48,7 @@ public class TetrisGameRunner extends Application implements Observer{
         root.getChildren().addAll(ambient);
         world.getChildren().addAll(engine.getElements());
         engine.addObserver(this);
-        
+
     }
 
     @Override
@@ -55,7 +56,7 @@ public class TetrisGameRunner extends Application implements Observer{
         LOGGER.debug("Start Application");
 
         buildScene();
-        Scene scene = new Scene(root, 768, 768,true,SceneAntialiasing.BALANCED);
+        Scene scene = new Scene(root, 768, 768, true, SceneAntialiasing.BALANCED);
         scene.setFill(Configuration.COLOR_UNIVERSE);
 
         primaryStage.setTitle(trans.getTranslate(Locale.getDefault(), KEY.APP_NAME));
@@ -69,16 +70,16 @@ public class TetrisGameRunner extends Application implements Observer{
             }
         });
         try {
-			this.engine.callCommand(Commands.PLAY);
-		} catch (CommandException e) {
-			LOGGER.error("Can't start game",e);
-		}
+            this.engine.callCommand(Commands.PLAY);
+        } catch (CommandException e) {
+            LOGGER.error("Can't start game", e);
+        }
     }
 
     public static void main(String[] args) {
         System.setProperty("prism.dirtyopts", "false");
         launch(args);
-        
+
     }
 
     public void update(Observable o, Object arg) {
@@ -86,7 +87,7 @@ public class TetrisGameRunner extends Application implements Observer{
         world.getChildren().addAll(engine.getElements());
         world.getChildren().retainAll(engine.getElements());
         for (Node node : engine.getElements()) {
-            if (!world.getChildren().contains(node)){
+            if (!world.getChildren().contains(node)) {
                 world.getChildren().add(node);
             }
         }

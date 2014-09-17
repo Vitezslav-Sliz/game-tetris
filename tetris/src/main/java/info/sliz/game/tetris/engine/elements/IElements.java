@@ -10,7 +10,7 @@ import javafx.scene.Node;
 public interface IElements {
 
     public void createAddInGameElement(final IElement element);
-    
+
     public List<Node> getNodes();
 
     public List<ICollidable> getColidable();
