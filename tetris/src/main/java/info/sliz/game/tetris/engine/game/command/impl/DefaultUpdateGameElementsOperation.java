@@ -17,6 +17,8 @@ import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 import info.sliz.game.tetris.engine.command.impl.CommandMoveForward;
 import info.sliz.game.tetris.engine.elements.IElements;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable;
+import info.sliz.game.tetris.engine.game.command.GameOperationException;
+import info.sliz.game.tetris.engine.game.command.IGameOperation;
 
 public class DefaultUpdateGameElementsOperation implements IGameOperation, Comparator<IMovable>, Predicate<IMovable> {
 

@@ -22,9 +22,9 @@ import info.sliz.game.tetris.engine.elements.impl.LevelColorManager;
 import info.sliz.game.tetris.engine.elements.impl.AllElementGeneratorStrategy;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.game.AbstractGameStrategy;
+import info.sliz.game.tetris.engine.game.command.GameOperationException;
+import info.sliz.game.tetris.engine.game.command.IGameOperation;
 import info.sliz.game.tetris.engine.game.command.impl.DefaultUpdateGameElementsOperation;
-import info.sliz.game.tetris.engine.game.command.impl.GameOperationException;
-import info.sliz.game.tetris.engine.game.command.impl.IGameOperation;
 import info.sliz.game.tetris.engine.gamespace.impl.FxGameSpace;
 
 import java.util.ArrayList;

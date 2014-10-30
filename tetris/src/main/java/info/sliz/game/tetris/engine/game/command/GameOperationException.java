@@ -1,4 +1,4 @@
-package info.sliz.game.tetris.engine.game.command.impl;
+package info.sliz.game.tetris.engine.game.command;
 
 public class GameOperationException extends Exception {
 
