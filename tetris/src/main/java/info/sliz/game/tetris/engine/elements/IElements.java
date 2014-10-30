@@ -18,4 +18,6 @@ public interface IElements {
     public List<IMovable> getMovable();
 
     public void removeAll(List<Object> remove);
+
+    public int size();
 }

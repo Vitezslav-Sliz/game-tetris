@@ -22,6 +22,7 @@ import info.sliz.game.tetris.engine.elements.impl.LevelColorManager;
 import info.sliz.game.tetris.engine.elements.impl.AllElementGeneratorStrategy;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.game.AbstractGameStrategy;
+import info.sliz.game.tetris.engine.game.IGameScoreStrategy;
 import info.sliz.game.tetris.engine.game.command.GameOperationException;
 import info.sliz.game.tetris.engine.game.command.IGameOperation;
 import info.sliz.game.tetris.engine.game.command.impl.DefaultUpdateGameElementsOperation;
@@ -45,7 +46,6 @@ public class DefaultGameStrategy extends AbstractGameStrategy implements Element
 
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
     final IGameOperation updateElements;
-    
 
     private final int size;
     private final int height;
@@ -55,12 +55,14 @@ public class DefaultGameStrategy extends AbstractGameStrategy implements Element
     final IElements elements;
     FxPlayableElement element;
     private final IPlaybleElementGenerator generator;
+    private final IGameScoreStrategy scoreStrategy;
 
-    public DefaultGameStrategy(final int size, final int height, final int blockSize, final int initialSpeed, final Color... colors) {
-        super(initialSpeed);
+    public DefaultGameStrategy(final int size, final int height, final int blockSize, final IGameScoreStrategy scoreStrategy, final Color... colors) {
+        super(scoreStrategy.getSpeedCoeficient(0));
         this.size = size;
         this.height = height;
         this.blockSize = blockSize;
+        this.scoreStrategy = scoreStrategy;
         this.space = new FxGameSpace(size, height, blockSize, this.blockSize / 100.0);
         this.generator = new AllElementGeneratorStrategy(new Point3D(0, 0, -(this.height * this.blockSize) + this.blockSize / 2), this.blockSize);
         this.elements = new Elements(this.blockSize, new LevelColorManager(this.blockSize, this.blockSize, colors));
@@ -112,11 +114,18 @@ public class DefaultGameStrategy extends AbstractGameStrategy implements Element
             LOGGER.debug("Elements not movable create");
             this.elements.createAddInGameElement(this.element);
             try {
+                int actualCount = this.elements.size();
                 this.updateElements.execute();
+                int actualCountNew = this.elements.size();
+                if (actualCount > actualCountNew){
+                    this.score += this.scoreStrategy.getScoreCoeficient(actualCount - actualCountNew);
+                    LOGGER.info("Actual Score is: "+this.score);
+                }
             } catch (GameOperationException e1) {
                 LOGGER.error("Error with calculate results and manipulate", e1);
             }
             updateToNewElement();
+            this.runner.setTime(this.scoreStrategy.getSpeedCoeficient(this.score));
         }
         LOGGER.debug("Elements in game is: " + (this.getElements().size() - 1));
         gameChanged();

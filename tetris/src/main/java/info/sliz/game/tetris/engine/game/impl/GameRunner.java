@@ -16,12 +16,12 @@ public final class GameRunner extends Thread {
     private static ExecutorService QUEUE = Executors.newFixedThreadPool(10);
     private static final Logger LOGGER = LoggerFactory.getLogger(GameRunner.class);
 
-    private int time;
+    private long time;
     private boolean run;
     private ICommand command;
     private boolean pause;
 
-    public GameRunner(final int time) {
+    public GameRunner(final long time) {
         this.time = time;
         this.run = true;
         this.pause = false;
@@ -35,7 +35,7 @@ public final class GameRunner extends Thread {
         this.run = false;
     }
 
-    public void setTime(final int time) {
+    public void setTime(final long time) {
         this.time = time;
     }
 

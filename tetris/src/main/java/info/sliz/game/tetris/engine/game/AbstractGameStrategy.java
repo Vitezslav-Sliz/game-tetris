@@ -12,10 +12,12 @@ public abstract class AbstractGameStrategy {
     private final GameChangedEvent e;
     private GameListener listener;
     protected final GameRunner runner;
+    protected long score;
 
-    public AbstractGameStrategy(final int initialspeed) {
+    public AbstractGameStrategy(final long initialspeed) {
         this.e = new GameChangedEvent(this);
         this.runner = new GameRunner(initialspeed);
+        this.score = 0;
     }
 
     public void setGameListener(final GameListener listener) {
@@ -39,5 +41,8 @@ public abstract class AbstractGameStrategy {
 
     public boolean isRunning() {
         return this.runner.isAlive();
+    }
+    public long getScore(){
+        return this.score;
     }
 }

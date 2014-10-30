@@ -58,4 +58,8 @@ public final class Elements implements IElements, ElementListener {
         FxInplaceElement el = (FxInplaceElement) e.getSource();
         el.setColor(this.cm.getColor(el.getElementCoordinate()));
     }
+
+    public int size() {
+       return this.elements.size();
+    }
 }
