@@ -1,4 +1,4 @@
-package info.sliz.game.tetris.engine.command.impl;
+package info.sliz.game.tetris.engine.game.command.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,11 +13,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import info.sliz.game.tetris.engine.ICollidable;
-import info.sliz.game.tetris.engine.command.ICommand;
+import info.sliz.game.tetris.engine.command.ICommand.CommandException;
+import info.sliz.game.tetris.engine.command.impl.CommandMoveForward;
 import info.sliz.game.tetris.engine.elements.IElements;
 import info.sliz.game.tetris.engine.elements.playcube.IMovable;
 
-public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>, Predicate<IMovable> {
+public class DefaultUpdateGameElementsOperation implements IGameOperation, Comparator<IMovable>, Predicate<IMovable> {
 
     private final IElements elements;
     private final int levelcount;
@@ -25,7 +26,7 @@ public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>
     protected final ICollidable colidate;
     private Double d;
 
-    public CommandUpdateGameElements(IElements elements, final ICollidable colidate, final int levelcount, final int moveStep) {
+    public DefaultUpdateGameElementsOperation(IElements elements, final ICollidable colidate, final int levelcount, final int moveStep) {
         this.elements = elements;
         this.levelcount = levelcount;
         this.step = moveStep;
@@ -33,9 +34,9 @@ public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>
         d = Double.NaN;
     }
 
-    public void execute() throws CommandException {
+    public void execute() throws GameOperationException{
         while (true) {
-            this.d = CommandUpdateGameElements.getZwithFullLevel(this.elements.getMovable(), levelcount);
+            this.d = DefaultUpdateGameElementsOperation.getZwithFullLevel(this.elements.getMovable(), levelcount);
             if (this.d.isNaN()) {
                 break;
             }
@@ -50,7 +51,11 @@ public class CommandUpdateGameElements implements ICommand, Comparator<IMovable>
             col.addAll(this.elements.getColidable());
             col.add(this.colidate);
             for (IMovable iMovable : sorted) {
-                new CommandMoveForward(iMovable, step, col).execute();
+                try {
+                    new CommandMoveForward(iMovable, step, col).execute();
+                } catch (CommandException e) {
+                    throw new GameOperationException("Problem to move elements during update elements",e);
+                }
             }
         }
     }

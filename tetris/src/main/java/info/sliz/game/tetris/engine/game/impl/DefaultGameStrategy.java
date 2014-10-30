@@ -4,7 +4,6 @@ import info.sliz.game.tetris.engine.ICollidable;
 import info.sliz.game.tetris.engine.IGameStrategy;
 import info.sliz.game.tetris.engine.command.CommandPlay;
 import info.sliz.game.tetris.engine.command.ICommand;
-import info.sliz.game.tetris.engine.command.ICommand.CommandException;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayAuto;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayDown;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayLeft;
@@ -14,7 +13,6 @@ import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateY;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayRotateZ;
 import info.sliz.game.tetris.engine.command.impl.CommandPlaySpace;
 import info.sliz.game.tetris.engine.command.impl.CommandPlayUp;
-import info.sliz.game.tetris.engine.command.impl.CommandUpdateGameElements;
 import info.sliz.game.tetris.engine.elements.IElements;
 import info.sliz.game.tetris.engine.elements.IPlaybleElementGenerator;
 import info.sliz.game.tetris.engine.elements.event.ElementListener;
@@ -24,6 +22,9 @@ import info.sliz.game.tetris.engine.elements.impl.LevelColorManager;
 import info.sliz.game.tetris.engine.elements.impl.AllElementGeneratorStrategy;
 import info.sliz.game.tetris.engine.elements.playcube.FxPlayableElement;
 import info.sliz.game.tetris.engine.game.AbstractGameStrategy;
+import info.sliz.game.tetris.engine.game.command.impl.DefaultUpdateGameElementsOperation;
+import info.sliz.game.tetris.engine.game.command.impl.GameOperationException;
+import info.sliz.game.tetris.engine.game.command.impl.IGameOperation;
 import info.sliz.game.tetris.engine.gamespace.impl.FxGameSpace;
 
 import java.util.ArrayList;
@@ -43,7 +44,8 @@ public class DefaultGameStrategy extends AbstractGameStrategy implements Element
     private static final double ANGLE = 90;
 
     private final Set<CommandPlay> commands = new HashSet<CommandPlay>();
-    final ICommand calcElemnts;
+    final IGameOperation updateElements;
+    
 
     private final int size;
     private final int height;
@@ -62,7 +64,7 @@ public class DefaultGameStrategy extends AbstractGameStrategy implements Element
         this.space = new FxGameSpace(size, height, blockSize, this.blockSize / 100.0);
         this.generator = new AllElementGeneratorStrategy(new Point3D(0, 0, -(this.height * this.blockSize) + this.blockSize / 2), this.blockSize);
         this.elements = new Elements(this.blockSize, new LevelColorManager(this.blockSize, this.blockSize, colors));
-        this.calcElemnts = new CommandUpdateGameElements(elements, this.space, this.size * this.size, this.blockSize);
+        this.updateElements = new DefaultUpdateGameElementsOperation(elements, this.space, this.size * this.size, this.blockSize);
 
         updateToNewElement();
     }
@@ -110,8 +112,8 @@ public class DefaultGameStrategy extends AbstractGameStrategy implements Element
             LOGGER.debug("Elements not movable create");
             this.elements.createAddInGameElement(this.element);
             try {
-                this.calcElemnts.execute();
-            } catch (CommandException e1) {
+                this.updateElements.execute();
+            } catch (GameOperationException e1) {
                 LOGGER.error("Error with calculate results and manipulate", e1);
             }
             updateToNewElement();
